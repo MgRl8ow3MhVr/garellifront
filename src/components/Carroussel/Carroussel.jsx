@@ -6,10 +6,15 @@ import "aos/dist/aos.css";
 
 function Carroussel({ cat }) {
   const [cptPage, setcptPage] = useState(1);
-  const [cptPagePrevious, setcptPagePrevious] = useState(1);
-  const [classTyp, setClassTyp] = useState("my-node");
+  const [cptPagePrevious, setcptPagePrevious] = useState(cptPage);
+  const [transit, setTransit] = useState(true);
+  const [moveDir, setMoveDir] = useState("right");
+  const [cptCat, setcptCat] = useState(1);
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
+
+  const colors = ["#ce6a6b", "#ebaca2", "#bed3c3", "#4a919e"];
+
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -20,35 +25,56 @@ function Carroussel({ cat }) {
         <button
           className="buttonNext"
           onClick={() => {
-            setClassTyp("my-node-inv");
+            setMoveDir("left");
             setcptPagePrevious(cptPage);
             setcptPage(cptPage - 1);
+            setTransit(!transit);
           }}
         >
-          PREV
+          {`< PREV`}
         </button>
       )}
 
       <button
         className="buttonPrev"
         onClick={() => {
-          setClassTyp("my-node");
+          setMoveDir("right");
           setcptPagePrevious(cptPage);
           setcptPage(cptPage + 1);
+          setTransit(!transit);
         }}
       >
-        NEXT
+        {`NEXT >`}
       </button>
+
+      <button
+        className="buttonDown"
+        onClick={() => {
+          setMoveDir("down");
+          setcptCat(cptCat + 1);
+          setcptPage(1);
+          setcptPagePrevious(1);
+          setTransit(!transit);
+        }}
+      >
+        DOWN
+      </button>
+
       <div className="boxesContainer">
         <CSSTransition
           nodeRef={nodeRef}
-          in={cptPage % 2}
+          in={transit}
           timeout={500}
-          classNames={classTyp}
-          // classNames="my-node-inv"
+          classNames={`go-${moveDir}`}
           unmountOnExit
         >
-          <div className="box" ref={nodeRef}>
+          <div
+            className="box"
+            ref={nodeRef}
+            style={{
+              backgroundColor: colors[cptCat - 1],
+            }}
+          >
             <div>
               <div
                 className="catwrite"
@@ -56,26 +82,32 @@ function Carroussel({ cat }) {
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
-                cat {cat}
+                categorie {cptCat}
               </div>
               <div
                 data-aos="fade-up"
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
-                {cptPage % 2 ? cptPage : cptPagePrevious}
+                {transit ? cptPage : cptPagePrevious}
               </div>
             </div>
           </div>
         </CSSTransition>
         <CSSTransition
           nodeRef={nodeRef2}
-          in={!(cptPage % 2)}
+          in={!transit}
           timeout={500}
-          classNames={classTyp}
+          classNames={`go-${moveDir}`}
           unmountOnExit
         >
-          <div className="box second" ref={nodeRef2}>
+          <div
+            className="box second"
+            ref={nodeRef2}
+            style={{
+              backgroundColor: colors[cptCat - 1],
+            }}
+          >
             <div>
               <div
                 className="catwrite"
@@ -83,14 +115,14 @@ function Carroussel({ cat }) {
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
-                cat {cat}
+                categorie {cptCat}
               </div>
               <div
                 data-aos="fade-up"
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
-                {cptPage % 2 ? cptPagePrevious : cptPage}
+                {transit ? cptPagePrevious : cptPage}
               </div>
             </div>
           </div>
