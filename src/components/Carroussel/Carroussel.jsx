@@ -5,9 +5,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 function Carroussel({ cat }) {
-  const [sel, setSel] = useState(true);
-  const [cptPage1, setcptPage1] = useState(1);
-  const [cptPage2, setcptPage2] = useState(0);
+  const [cptPage, setcptPage] = useState(1);
+  const [cptPagePrevious, setcptPagePrevious] = useState(1);
   const [classTyp, setClassTyp] = useState("my-node");
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
@@ -17,31 +16,25 @@ function Carroussel({ cat }) {
   }, []);
   return (
     <div className="boxesContainer" id={`cat_${cat}`}>
-      <button
-        className="buttonNext"
-        onClick={() => {
-          setSel(!sel);
-          setClassTyp("my-node-inv");
-          // console.log('sel',sel)
-          if (sel) {
-            setcptPage2(cptPage2 - 2);
-          } else {
-            setcptPage1(cptPage1 - 2);
-          }
-        }}
-      >
-        PREV
-      </button>
+      {cptPage > 0 && (
+        <button
+          className="buttonNext"
+          onClick={() => {
+            setClassTyp("my-node-inv");
+            setcptPagePrevious(cptPage);
+            setcptPage(cptPage - 1);
+          }}
+        >
+          PREV
+        </button>
+      )}
+
       <button
         className="buttonPrev"
         onClick={() => {
-          setSel(!sel);
           setClassTyp("my-node");
-          if (sel) {
-            setcptPage2(cptPage2 + 2);
-          } else {
-            setcptPage1(cptPage1 + 2);
-          }
+          setcptPagePrevious(cptPage);
+          setcptPage(cptPage + 1);
         }}
       >
         NEXT
@@ -49,8 +42,8 @@ function Carroussel({ cat }) {
       <div className="boxesContainer">
         <CSSTransition
           nodeRef={nodeRef}
-          in={sel}
-          timeout={1000}
+          in={cptPage % 2}
+          timeout={500}
           classNames={classTyp}
           // classNames="my-node-inv"
           unmountOnExit
@@ -59,26 +52,26 @@ function Carroussel({ cat }) {
             <div>
               <div
                 className="catwrite"
-                data-aos="fade-right"
-                data-aos-duration="500"
-                data-aos-delay={500}
+                data-aos="fade-down"
+                data-aos-duration="800"
+                // data-aos-delay={500}
               >
                 cat {cat}
               </div>
               <div
-                data-aos="fade-left"
-                data-aos-duration="500"
-                data-aos-delay={500}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                // data-aos-delay={500}
               >
-                {cptPage1}
+                {cptPage % 2 ? cptPage : cptPagePrevious}
               </div>
             </div>
           </div>
         </CSSTransition>
         <CSSTransition
           nodeRef={nodeRef2}
-          in={!sel}
-          timeout={1000}
+          in={!(cptPage % 2)}
+          timeout={500}
           classNames={classTyp}
           unmountOnExit
         >
@@ -86,18 +79,18 @@ function Carroussel({ cat }) {
             <div>
               <div
                 className="catwrite"
-                data-aos="fade-right"
-                data-aos-duration="500"
-                data-aos-delay={500}
+                data-aos="fade-down"
+                data-aos-duration="800"
+                // data-aos-delay={500}
               >
                 cat {cat}
               </div>
               <div
-                data-aos="fade-left"
-                data-aos-duration="500"
-                data-aos-delay={500}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                // data-aos-delay={500}
               >
-                {cptPage2}
+                {cptPage % 2 ? cptPagePrevious : cptPage}
               </div>
             </div>
           </div>
