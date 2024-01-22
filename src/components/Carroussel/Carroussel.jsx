@@ -2,7 +2,7 @@ import { CSSTransition } from "react-transition-group";
 import { useState, useRef } from "react";
 import './Carroussel.css'
 
-function Carroussel() {
+function Carroussel({cat}) {
   const [sel, setSel] = useState(true);
   const [cptPage1, setcptPage1] = useState(1);
   const [cptPage2, setcptPage2] = useState(0);
@@ -10,7 +10,7 @@ function Carroussel() {
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
   return (
-    <div>
+    <div className='boxesContainer' id={`cat_${cat}`} >
       <button className="buttonNext" onClick={() =>{ 
         setSel(!sel)
         setClassTyp('my-node-inv')
@@ -44,7 +44,9 @@ function Carroussel() {
         unmountOnExit
       >
         <div className="box" ref={nodeRef}>
-          <div>{cptPage1}</div>
+          <div>
+          <div className="catwrite">cat {cat}</div>
+            {cptPage1}</div>
         </div>
       </CSSTransition>
       <CSSTransition
@@ -52,13 +54,12 @@ function Carroussel() {
         in={!sel}
         timeout={1000}
         classNames={classTyp}
-        // classNames="my-node-inv"
         unmountOnExit
       >
         <div className="box second" ref={nodeRef2} 
-        // style={{backgroundColor:`rgb(${20*cptPage2}, ${10*cptPage2}, ${5*cptPage2})`}}
         >
-          <div >{cptPage2}</div>
+          <div >
+          <div className="catwrite">cat {cat}</div>{cptPage2}</div>
         </div>
       </CSSTransition>
       </div>

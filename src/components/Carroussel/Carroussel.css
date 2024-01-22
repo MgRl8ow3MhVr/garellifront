@@ -1,10 +1,35 @@
-  
+ 
   .boxesContainer{
-    /* border:solid red 2px;
-    overflow: hidden;
-    display: flex; */
-    /* width: 100%; */
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    border:solid 2px red;
   }
+
+
+  .box {
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+    position: absolute;
+    top:0;
+    right: 0;
+    color:black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 75px;
+  }
+  
+  .second{
+    background-color: rgb(102, 255, 82);
+    /* transform: translateY(-200px); */
+  }
+  
+  .catwrite{
+    font-size: 30px;
+  }
+
   
   .my-node-enter {
     transform: scale(1) translateX(100%);
@@ -34,28 +59,6 @@
   .my-node-inv-exit-active {
     transform: translateX(100%);
     transition: opacity var(--timing), transform var(--timing);
-  }
-  
-  .box {
-    /* flex:0 0 auto; */
-    /* width: 100%; */
-    width: 100%;
-    /* height: 100vh; */
-    height: 500px;
-    background-color: orange;
-    position: absolute;
-    top:0;
-    right: 0;
-    color:black;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 75px;
-  }
-  
-  .second{
-    background-color: rgb(102, 255, 82);
-    /* transform: translateY(-200px); */
   }
   
   .buttonNext {
