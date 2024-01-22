@@ -1,0 +1,30 @@
+:root {
+  --timing: 1000ms;
+}
+
+body {
+  margin: 0;
+}
+
+
+.buttonUp {
+  z-index: 1;
+  border: solid 2px black;
+  position: fixed;
+  top:50%
+}
+
+.buttonDown {
+  z-index: 1;
+  border: solid 2px black;
+  position: fixed;
+  top:50%;
+  right:0;
+}
+
+.cont1{
+  width: 100%;
+  height: 500px;
+  position: relative;
+  border:solid 2px red;
+}
