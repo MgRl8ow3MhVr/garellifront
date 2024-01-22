@@ -85,7 +85,7 @@ function Carroussel({ cat }) {
                 categorie {cptCat}
               </div>
               <div
-                data-aos="fade-up"
+                data-aos="fade-right"
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
@@ -105,7 +105,7 @@ function Carroussel({ cat }) {
             className="box second"
             ref={nodeRef2}
             style={{
-              backgroundColor: colors[cptCat - 1],
+              backgroundColor: colors[cptCat],
             }}
           >
             <div>
@@ -118,7 +118,7 @@ function Carroussel({ cat }) {
                 categorie {cptCat}
               </div>
               <div
-                data-aos="fade-up"
+                data-aos="fade-left"
                 data-aos-duration="800"
                 // data-aos-delay={500}
               >
