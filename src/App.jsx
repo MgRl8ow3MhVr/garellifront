@@ -1,5 +1,6 @@
 import "./App.css";
-import Carroussel from "./components/Carroussel/Carroussel";
+import Category from "./components/Category/Category";
+
 import Selector from "./components/Selector/Selector";
 import MenuPopUp from "./components/Menu/Menu";
 
@@ -8,10 +9,7 @@ function App() {
     <div>
       <MenuPopUp />
       {/* <Selector /> */}
-      <Carroussel cat={1} />
-      {/* <Carroussel cat={2}/>
-       <Carroussel cat={3}/>
-       <Carroussel cat={4}/> */}
+      <Category cat={1} />
     </div>
   );
 }
