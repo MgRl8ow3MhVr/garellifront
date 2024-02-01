@@ -1,15 +1,16 @@
 import "./App.css";
 import Category from "./components/Category/Category";
+import LoginPage from "./pages/Login/Login";
 
-import Selector from "./components/Selector/Selector";
 import MenuPopUp from "./components/Menu/Menu";
 
 function App() {
   return (
-    <div>
-      <MenuPopUp />
+    <div className="appContainer">
+      <LoginPage />
+      {/* <MenuPopUp /> */}
       {/* <Selector /> */}
-      <Category cat={1} />
+      {/* <Category cat={1} /> */}
     </div>
   );
 }

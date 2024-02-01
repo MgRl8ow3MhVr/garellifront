@@ -1,0 +1,9 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px black;
+  gap: 5px;
+  padding: 5px;
+}
