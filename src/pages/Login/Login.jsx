@@ -1,7 +1,6 @@
 import "./Login.css";
 import { useState } from "react";
 import { appStore } from "../../store/store";
-import { apiUrl } from "../../config";
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState("");
@@ -12,6 +11,7 @@ const LoginPage = () => {
   return (
     <div className="loginContainer">
       <div>welcome </div>
+      <div>{appStore((state) => state.bears)}</div>
       <div>{appStore((state) => state.user.username)}</div>
       <div>jwt {appStore((state) => state.jwt)}</div>
       <input
@@ -35,6 +35,8 @@ const LoginPage = () => {
       >
         Validate
       </button>
+      {/* <button onClick={increasePopulation}>add</button>
+      <button onClick={increaseJwt}>add</button> */}
     </div>
   );
 };

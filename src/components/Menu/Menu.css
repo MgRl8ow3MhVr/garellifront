@@ -9,11 +9,15 @@
   align-items: center;
   font-size: 40px;
   flex-direction: column;
+  color: var(--light);
 }
 
 .menuIcon {
+  color: var(--light);
   font-size: 40px;
   position: absolute;
+  top: 10px;
+  left: 10px;
   z-index: 101;
   cursor: pointer;
   transition: all 0.2s;

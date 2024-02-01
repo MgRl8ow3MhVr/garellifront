@@ -7,6 +7,10 @@ export const appStore = create((set, get) => ({
     username: "notLogued",
   },
   jwt: "",
+  bears: 0,
+  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+  increaseJwt: () => set((state) => ({ jwt: state.jwt + "0" })),
+  disconnect: () => set((state) => ({ jwt: "" })),
 
   // # # # # # # # FETCH METHOD # # # # # # #
   fetchApi: async (endpoint, params, method, action) => {
