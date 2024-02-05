@@ -17,8 +17,9 @@ function App() {
   return (
     <div className="appContainer">
       {!jwt ? (
-        <LoginPage />
+        <FindTeenage />
       ) : (
+        // <LoginPage />
         <BrowserRouter>
           <MenuPopUp />
           <Routes>

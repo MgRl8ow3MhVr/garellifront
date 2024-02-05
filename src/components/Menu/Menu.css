@@ -9,11 +9,11 @@
   align-items: center;
   font-size: 40px;
   flex-direction: column;
-  color: var(--light);
+  color: var(--background1);
 }
 
 .menuIcon {
-  color: var(--light);
+  color: var(--background1);
   font-size: 40px;
   position: absolute;
   top: 10px;

@@ -12,7 +12,7 @@ export const appStore = create((set, get) => ({
   increaseJwt: () => set((state) => ({ jwt: state.jwt + "0" })),
   disconnect: () => set((state) => ({ jwt: "" })),
 
-  // # # # # # # # FETCH METHOD # # # # # # #
+  // # # # # # # # SECURE FETCH METHOD # # # # # # #
   fetchApi: async (endpoint, params, method, action) => {
     try {
       const response = await fetch(`${apiUrl}${endpoint}`, {
@@ -41,8 +41,8 @@ export const appStore = create((set, get) => ({
       // envoyer SNACK BAR
     }
   },
-  // # # # # # # # api calls and actions # # # # # # #
 
+  // # # # # # # # api calls and actions # # # # # # #
   apiLogin: (params) =>
     get().fetchApi("/auth/local", params, "POST", (data) => {
       set({ user: data.user, jwt: data.jwt });

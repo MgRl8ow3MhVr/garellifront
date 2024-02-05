@@ -1,25 +1,67 @@
 :root {
   --timing: 500ms;
-  --light: #fff6eb;
-  --dark: #422439;
+  --background1: #fff6eb;
+  --background2: #ffe3c2;
+  --typo: #422439;
+  --button: #fbc73b;
+  --grey1: #f0f0f0;
+  --grey2: #b5b9bd;
+  --grey3: #d5d9dd;
+  --inprogress: #ffcb96;
+  --done: #fa8743;
 }
 
 html {
   scroll-behavior: smooth;
+  /* font-size: 16px; */
 }
 
 body {
   margin: 0;
 }
 
+input {
+  border: 0;
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--typo);
+  border-radius: 0.5rem;
+  margin: 0 0 0 0;
+}
+
+::placeholder {
+  color: var(--grey2);
+  opacity: 1; /* Firefox */
+}
+
+button {
+  background-color: var(--button);
+  border: 0;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  min-width: 8rem;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+input:focus {
+  outline-width: 0;
+}
+
 .appContainer {
-  background-color: var(--light);
-  color: var(--dark);
+  color: var(--typo);
+  background-color: var(--background1);
   width: 100%;
   height: 100vh;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* font-weight: 400; */
   display: flex;
   justify-content: center;
   align-items: center;

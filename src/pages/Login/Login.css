@@ -1,9 +1,32 @@
 .loginContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.loginBlockUp {
+  padding-top: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: solid 1px black;
-  gap: 5px;
-  padding: 5px;
+}
+
+.loginBlockDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loginBlockDown > img {
+  width: 6rem;
+}
+
+.loginTitle {
+  font-size: 2rem;
+  font-weight: 700;
 }
