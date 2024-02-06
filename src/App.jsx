@@ -13,14 +13,13 @@ import "./assets/fonts/DidactGothic-Regular.ttf";
 
 function App() {
   const jwt = appStore((state) => state.jwt);
-  console.log("jwt est", jwt);
 
   return (
     <div className="appContainer">
       {!jwt ? (
+        // <LoginPage />
         <FindTeenage />
       ) : (
-        // <LoginPage />
         <BrowserRouter>
           <MenuPopUp />
           <Routes>

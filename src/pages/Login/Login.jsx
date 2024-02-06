@@ -14,7 +14,6 @@ const LoginPage = () => {
     <div className="loginContainer">
       <div className="loginBlockUp">
         <div className="loginTitle">ACQUIS DES JEUNES</div>
-        {/* <div>{appStore((state) => state.bears)}</div> */}
         <div style={{ height: "5rem" }}></div>
         <input
           type="text"
@@ -47,9 +46,6 @@ const LoginPage = () => {
         <img src={logo1} />
         <img src={logo2} />
       </div>
-
-      {/* <button onClick={increasePopulation}>add</button>
-      <button onClick={increaseJwt}>add</button> */}
     </div>
   );
 };

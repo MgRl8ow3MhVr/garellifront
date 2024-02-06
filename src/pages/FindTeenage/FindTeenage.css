@@ -40,13 +40,17 @@
 }
 
 .findTeenListContainer > div {
-  /* width: 100%;
-  height: 100%; */
   background-color: var(--grey1);
   padding: 1rem;
   margin-bottom: 1px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+}
+
+.findTeenListContainer > div:hover {
+  background-color: var(--grey3);
+  color: black;
 }
 
 .findTeenDate {
@@ -64,11 +68,13 @@
   opacity: 1;
   transition: all var(--timingSuggestion) ease;
 }
+
 .suggestion-exit {
   transform: translateX(0%);
 }
 .suggestion-exit-active {
   opacity: 0;
-  /* transform: translateX(-10%); */
+  /* transform: translateX(30%); */
+  /* transition: all 100ms ease; */
   transition: all var(--timingSuggestion) ease;
 }

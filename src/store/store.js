@@ -6,10 +6,8 @@ export const appStore = create((set, get) => ({
   user: {
     username: "notLogued",
   },
-  jwt: "",
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  increaseJwt: () => set((state) => ({ jwt: state.jwt + "0" })),
+  jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzA2Nzc5MzI1LCJleHAiOjE3MDkzNzEzMjV9.TP-ZoDuqhxEa73e-CKk0pzyiG49ifa9dJGsz46b3sBk",
+  // jwt: "",
   disconnect: () => set((state) => ({ jwt: "" })),
 
   // # # # # # # # SECURE FETCH METHOD # # # # # # #
@@ -21,7 +19,7 @@ export const appStore = create((set, get) => ({
           "Content-Type": "application/json",
           Authorization: "Bearer " + get().jwt,
         },
-        body: JSON.stringify(params),
+        body: method !== "GET" ? JSON.stringify(params) : null,
       });
 
       if (!response.ok) {
@@ -33,6 +31,7 @@ export const appStore = create((set, get) => ({
       if (action) {
         action(data);
       }
+      return data;
     } catch (error) {
       console.error(
         "There has been a problem with your fetch operation:",
@@ -47,12 +46,19 @@ export const appStore = create((set, get) => ({
     get().fetchApi("/auth/local", params, "POST", (data) => {
       set({ user: data.user, jwt: data.jwt });
     }),
-  apiFetchTeenages: (params) => {
-    console.log("call api", params);
-    const query = "toto=toto";
-    get().fetchApi(`/teenagers/${query}`, params, "GET", (data) => {
-      return "toto";
-      // set({ user: data.user, jwt: data.jwt });
+  apiFetchTeenages: async () => {
+    // console.log("call api", get().user.id);
+    const userId = 3;
+    const query = `filters[educator][id][$eq]=${userId}`;
+    const response = await get().fetchApi(
+      `/teenagers?${query}`,
+      null,
+      "GET",
+      null
+    );
+    return response.data.map((t) => {
+      // return "test";
+      return { ...t.attributes, id: t.id };
     });
   },
 }));

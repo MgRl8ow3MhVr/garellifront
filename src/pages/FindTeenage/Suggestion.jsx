@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 const Suggestion = ({ s, i, exit }) => {
   const nodeRef = useRef(null);
   const [enter, setEnter] = useState(false);
-
+  console.log(s, i);
   useEffect(() => {
     setTimeout(() => {
       setEnter(true);
@@ -14,6 +14,7 @@ const Suggestion = ({ s, i, exit }) => {
   return (
     <CSSTransition
       nodeRef={nodeRef}
+      // in={enter}
       in={exit ? false : enter}
       timeout={250}
       classNames="suggestion"
@@ -22,7 +23,7 @@ const Suggestion = ({ s, i, exit }) => {
       <div ref={nodeRef}>
         <span>{s.first_name}</span>
         <span>{s.last_name}</span>
-        <span className="findTeenDate">{s.date}</span>
+        <span className="findTeenDate">{s.birth_date}</span>
       </div>
     </CSSTransition>
   );

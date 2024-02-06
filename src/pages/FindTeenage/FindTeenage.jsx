@@ -4,37 +4,33 @@ import { useState, useEffect } from "react";
 import Suggestion from "./Suggestion";
 import { appStore } from "../../store/store";
 
-const teen1 = [
-  { first_name: "tes", last_name: "lastname1", date: "18/23/2000" },
-  { first_name: "prenomlong", last_name: "lastname2", date: "18/23/2000" },
-  {
-    first_name: "prenom-tres-long",
-    last_name: "lastname3",
-    date: "18/23/2000",
-  },
-];
-const teen2 = [
-  { first_name: "one result", last_name: "result11", date: "18/23/2000" },
-];
 const FindTeenage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [exitAll, setExitAll] = useState(false);
+  const [allTeenages, setAllTeenages] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
 
   const apiFetchTeenages = appStore((state) => state.apiFetchTeenages);
 
   useEffect(() => {
-    const teens = searchTerm === "s" ? teen1 : searchTerm === "ss" ? teen2 : [];
-
     const search = async () => {
-      apiFetchTeenages({ p1: "tata" });
+      const data = await apiFetchTeenages();
+      setAllTeenages(data);
+      setSuggestionList(data);
     };
+    search();
+  }, []);
 
-    // setExitAll(true);
-    // setTimeout(() => {
-    //   setSuggestionList(teens);
-    //   setExitAll(false);
-    // }, 200);
+  useEffect(() => {
+    if (searchTerm) {
+      setExitAll(true);
+      setTimeout(() => {
+        setSuggestionList(
+          allTeenages.filter((t) => t.first_name.includes(searchTerm))
+        );
+        setExitAll(false);
+      }, 250);
+    }
   }, [searchTerm]);
 
   return (
@@ -52,7 +48,7 @@ const FindTeenage = () => {
       </div>
       <div className="findTeenListContainer">
         {suggestionList.map((s, i) => (
-          <Suggestion key={`${i}${s.first_name}`} s={s} i={i} exit={exitAll} />
+          <Suggestion key={`${s.first_name}`} s={s} i={i} exit={exitAll} />
         ))}
       </div>
     </div>
