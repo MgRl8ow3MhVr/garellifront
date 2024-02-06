@@ -47,4 +47,12 @@ export const appStore = create((set, get) => ({
     get().fetchApi("/auth/local", params, "POST", (data) => {
       set({ user: data.user, jwt: data.jwt });
     }),
+  apiFetchTeenages: (params) => {
+    console.log("call api", params);
+    const query = "toto=toto";
+    get().fetchApi(`/teenagers/${query}`, params, "GET", (data) => {
+      return "toto";
+      // set({ user: data.user, jwt: data.jwt });
+    });
+  },
 }));

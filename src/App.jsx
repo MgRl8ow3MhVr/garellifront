@@ -9,6 +9,7 @@ import MenuPopUp from "./components/Menu/Menu";
 // OTHERS
 import { appStore } from "./store/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./assets/fonts/DidactGothic-Regular.ttf";
 
 function App() {
   const jwt = appStore((state) => state.jwt);

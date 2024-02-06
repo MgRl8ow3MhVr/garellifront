@@ -11,6 +11,12 @@
   --done: #fa8743;
 }
 
+@font-face {
+  font-family: "DidactGothic";
+  src: local("DidactGothic"),
+    url("./assets/fonts/DidactGothic-Regular.ttf") format("truetype");
+}
+
 html {
   scroll-behavior: smooth;
   /* font-size: 16px; */
@@ -60,7 +66,10 @@ input:focus {
   background-color: var(--background1);
   width: 100%;
   height: 100vh;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "DidactGothic";
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; */
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   /* font-weight: 400; */
   display: flex;
   justify-content: center;

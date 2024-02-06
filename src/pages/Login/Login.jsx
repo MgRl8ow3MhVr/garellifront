@@ -1,8 +1,8 @@
 import "./Login.css";
 import { useState } from "react";
 import { appStore } from "../../store/store";
-import logo1 from "../../assets/logobosco.png";
-import logo2 from "../../assets/logog95.png";
+import logo1 from "../../assets/icons/logobosco.png";
+import logo2 from "../../assets/icons/logog95.png";
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState("");
