@@ -11,6 +11,7 @@ const FindTeenage = () => {
   const [suggestionList, setSuggestionList] = useState([]);
 
   const apiFetchTeenages = appStore((state) => state.apiFetchTeenages);
+  const userName = appStore((state) => state.user?.name);
 
   useEffect(() => {
     const search = async () => {
@@ -36,6 +37,7 @@ const FindTeenage = () => {
   return (
     <div className="findTeenContainer">
       <div className="findTeenInput">
+        <div>BIENVENUE {userName}</div>
         <input
           type="text"
           value={searchTerm}

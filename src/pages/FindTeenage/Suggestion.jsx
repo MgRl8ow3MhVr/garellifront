@@ -4,7 +4,6 @@ import { CSSTransition } from "react-transition-group";
 const Suggestion = ({ s, i, exit }) => {
   const nodeRef = useRef(null);
   const [enter, setEnter] = useState(false);
-  console.log(s, i);
   useEffect(() => {
     setTimeout(() => {
       setEnter(true);

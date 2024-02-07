@@ -50,7 +50,7 @@
 
 .findTeenListContainer > div:hover {
   background-color: var(--grey3);
-  color: black;
+  color: white;
 }
 
 .findTeenDate {
@@ -60,21 +60,19 @@
 /* # # # # # # # ANIMATION # # # # # # #  */
 
 .suggestion-enter {
-  transform: scale(1) translateX(-20%);
+  transform: scale(1) translateY(-50%);
   opacity: 0;
 }
 .suggestion-enter-active {
-  transform: translateX(0%);
+  transform: translateY(0%);
   opacity: 1;
   transition: all var(--timingSuggestion) ease;
 }
 
 .suggestion-exit {
-  transform: translateX(0%);
+  transform: translateY(0%);
 }
 .suggestion-exit-active {
   opacity: 0;
-  /* transform: translateX(30%); */
-  /* transition: all 100ms ease; */
   transition: all var(--timingSuggestion) ease;
 }

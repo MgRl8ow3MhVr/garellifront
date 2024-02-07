@@ -18,8 +18,10 @@ const MenuPopUp = () => {
       </div>
       {open && (
         <div className="menuContainer">
-          <div onClick={disconnect}>DISCONNECT</div>
-          <div>RETOUR HOME</div>
+          <div className="menuOption" onClick={disconnect}>
+            DISCONNECT
+          </div>
+          <div className="menuOption">RETOUR HOME</div>
         </div>
       )}
     </>
