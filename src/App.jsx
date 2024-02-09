@@ -1,9 +1,12 @@
 import "./App.css";
 
-// COMPONENTS
-import Category from "./components/Category/Category";
+// PAGES
 import LoginPage from "./pages/Login/Login";
+import Category from "./components/Category/Category";
 import FindTeenage from "./pages/FindTeenage/FindTeenage";
+import TeenProfile from "./pages/TeenProfile/TeenProfile";
+
+// COMPONENTS
 import MenuPopUp from "./components/Menu/Menu";
 import Snackbar from "./components/Snackbar/Snackbar";
 
@@ -25,6 +28,7 @@ function App() {
           <MenuPopUp />
           <Routes>
             <Route path="/" element={<FindTeenage />} />
+            <Route path="/profil" element={<TeenProfile />} />
             <Route path="/page1" element={<Category />} />
           </Routes>
         </BrowserRouter>

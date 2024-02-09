@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { apiUrl } from "../config";
+import { queryMaker } from "../utils/utils";
 
 export const appStore = create((set, get) => ({
   // # # # # # # # STORE DATA # # # # # # #
@@ -9,6 +10,7 @@ export const appStore = create((set, get) => ({
     username: localStorage.getItem("username") || "",
     email: localStorage.getItem("email") || "",
   },
+  teen: null,
   snackbar: { on: false, text: "", error: false },
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
@@ -86,19 +88,24 @@ export const appStore = create((set, get) => ({
       }
     ),
 
-  // # # # # # # # CALLS # # # # # # #
+  // # # # # # # # SCREEN FIND-TEENAGE # # # # # # #
 
   apiFetchTeenages: async () => {
     // This is this the first call after automatic login.
-    // So jwt and user infos might be expired
-    const query = `filters[educator][id][$eq]=${get().user.id}`;
+    // So jwt and user infos might be expired -- see fail action
+    const query = queryMaker({
+      fields: ["first_name", "last_name", "birth_date"],
+      filters: [`[educator][id][$eq]=${get().user.id}`],
+    });
     const response = await get().fetchApi(
       `/teenagers?${query}`,
       null,
       "GET",
+      // on success
       () => {
         get().showSnackbar(`Bienvenue ${get().user.username}`);
       },
+      // on fail - especially if token not available anymore
       () => {
         get().showSnackbar("Vous devez vous re-connecter", true);
         get().disconnect();
@@ -107,5 +114,37 @@ export const appStore = create((set, get) => ({
     return response.data.map((t) => {
       return { ...t.attributes, id: t.id };
     });
+  },
+
+  // # # # # # # # SCREEN TEEN PROFILE # # # # # # #
+
+  apiFetchOneTeen: async (teenId) => {
+    const query = queryMaker({
+      populate: [
+        `[evaluations][fields][0]=status`,
+        `[evaluations][populate][0]=evaluation_time`,
+      ],
+    });
+
+    const response = await get().fetchApi(
+      `/teenagers/${teenId}?${query}`,
+      null,
+      "GET",
+      ({ data }) => {
+        set(() => ({
+          teen: {
+            id: data.id,
+            ...data?.attributes,
+            evaluations: data.attributes?.evaluations?.data,
+          },
+        }));
+        get().showSnackbar(`Yessaie`);
+      },
+      () => {
+        get().showSnackbar("Il y a eu un pb avec le gars");
+      }
+    );
+    // console.log("res", response.data);
+    // return response?.data?.attributes.?evaluations?.data;
   },
 }));

@@ -1,0 +1,45 @@
+.teenContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.teenBlockTeen {
+  flex: 1;
+  background-color: var(--typo);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: content-box;
+}
+
+.teenInfos {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  /* align-items: center; */
+}
+
+.teenInfos > p {
+  color: var(--background1);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.teenBlockEvals {
+  flex: 1.2;
+  padding-top: 2rem;
+}
+
+.teenEvalsTitle {
+  font-size: 2rem;
+  border: 1px blue solid;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.teenEvalsTime {
+  background-color: var(--typo);
+  color: var(--background1);
+  margin-bottom: 1rem;
+}

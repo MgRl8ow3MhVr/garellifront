@@ -1,9 +1,15 @@
 import { useRef, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import { appStore } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const Suggestion = ({ s, i, exit }) => {
   const nodeRef = useRef(null);
   const [enter, setEnter] = useState(false);
+  const navigate = useNavigate();
+
+  // const apiFetchTeenages = appStore((state) => state.apiFetchTeenages);
+
   useEffect(() => {
     setTimeout(() => {
       setEnter(true);
@@ -13,13 +19,18 @@ const Suggestion = ({ s, i, exit }) => {
   return (
     <CSSTransition
       nodeRef={nodeRef}
-      // in={enter}
       in={exit ? false : enter}
       timeout={250}
       classNames="suggestion"
       unmountOnExit
     >
-      <div ref={nodeRef}>
+      <div
+        className="findTeenSuggestion"
+        ref={nodeRef}
+        onClick={() => {
+          navigate("/profil", { state: { teenId: s.id } });
+        }}
+      >
         <span>{s.first_name}</span>
         <span>{s.last_name}</span>
         <span className="findTeenDate">{s.birth_date}</span>
