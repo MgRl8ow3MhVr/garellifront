@@ -13,7 +13,6 @@ import Snackbar from "./components/Snackbar/Snackbar";
 // OTHERS
 import { appStore } from "./store/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./assets/fonts/DidactGothic-Regular.ttf";
 
 function App() {
   const user = appStore((state) => state.user);

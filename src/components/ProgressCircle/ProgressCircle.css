@@ -1,0 +1,23 @@
+circle {
+  transition: all 0.7s ease-in-out;
+}
+
+.svgProgressBar {
+  /* background-color: orange; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid blue;
+}
+
+.svgProgressBar svg {
+  position: absolute;
+}
+
+.svgProgressBar img {
+  /* z-index: 100; */
+  /* position: absolute; */
+  /* top: 25%;
+  right: 25%; */
+}
