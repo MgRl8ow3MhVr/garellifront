@@ -11,6 +11,7 @@ export const appStore = create((set, get) => ({
     email: localStorage.getItem("email") || "",
   },
   teen: null,
+  evalTimes: null,
   snackbar: { on: false, text: "", error: false },
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
@@ -83,7 +84,7 @@ export const appStore = create((set, get) => ({
         localStorage.setItem("username", data.user?.username);
         localStorage.setItem("email", data.user?.email);
       },
-      (data) => {
+      () => {
         get().showSnackbar("Identifiant ou mot de passe non reconnu", true);
       }
     ),
@@ -144,7 +145,26 @@ export const appStore = create((set, get) => ({
         get().showSnackbar("Il y a eu un pb avec le gars");
       }
     );
-    // console.log("res", response.data);
+  },
+  apiFetchTimes: async () => {
+    const response = await get().fetchApi(
+      `/evaluation-times`,
+      null,
+      "GET",
+      ({ data }) => {
+        set(() => ({
+          evalTimes: data.map((time) => {
+            return {
+              id: time.id,
+              ...time.attributes,
+            };
+          }),
+        }));
+      },
+      () => {
+        get().showSnackbar("Problème réseau pour récupérer les temporalités");
+      }
+    );
     // return response?.data?.attributes.?evaluations?.data;
   },
 }));

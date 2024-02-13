@@ -17,14 +17,22 @@
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
-  /* align-items: center; */
 }
 
 .teenInfos > p {
   color: var(--background1);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
+  margin: 1rem 0 0 0;
 }
+
+.teenInfos > p > span {
+  color: var(--background1);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/*  # # # # # # # # BLOCK EVAL # # # # # # # # */
 
 .teenBlockEvals {
   flex: 1.2;
@@ -32,20 +40,58 @@
 }
 
 .teenEvalsTitle {
-  font-size: 2rem;
-  border: 1px blue solid;
+  font-size: 1.5rem;
+  font-weight: 700;
+  /* border: 1px blue solid; */
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 4rem;
 }
+
 .teenEvalsTime {
   background-color: var(--typo);
   color: var(--background1);
   margin-bottom: 1rem;
+  font-size: 1.2rem;
+  padding-left: 2rem;
 }
 
-.teenEvalsDrawer {
-  border: 1px solid green;
+.teenEvalsTime.notselected {
+  background-color: var(--grey2);
+}
+
+/*  # # # # # # # # DRAWERS # # # # # # # # */
+
+.catLineContainer {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  /* gap: 2rem; */
+}
+
+/* # # # # # # # # ANIMATION # # # # # # # #  */
+
+.drawer-enter {
+  transform: scale(0.8);
+  opacity: 0;
+  overflow: hidden;
+  max-height: 0;
+}
+.drawer-enter-active {
+  opacity: 1;
+  transform: scale(1);
+
+  max-height: 1000px;
+  transition: all 0.6s ease-in-out;
+}
+
+.drawer-exit {
+  opacity: 1;
+  max-height: 1000px;
+}
+.drawer-exit-active {
+  opacity: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.6s cubic-bezier(0, 1, 0, 1);
 }

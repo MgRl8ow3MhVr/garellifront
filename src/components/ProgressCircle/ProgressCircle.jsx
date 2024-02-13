@@ -17,13 +17,15 @@ const Circle = ({ colour, pct, size, colourIn }) => {
       r={r}
       cx={size}
       cy={size}
-      fill="transparent"
-      //   fill={colourIn}
+      // fill="transparent"
+      fill={colourIn || "transparent"}
       stroke={strokePct !== circ ? colour : ""} // remove colour as 0% sets full circumference
       strokeWidth={"0.25rem"}
       strokeDasharray={circ}
       strokeDashoffset={pct ? strokePct : 0}
       strokeLinecap="round"
+      style={{ transition: `all 0.7s ease-in-out` }}
+      //   style={{ transition: `all ${(1 * pct) / 100}s ease-in-out` }}
     ></circle>
   );
 };
@@ -49,12 +51,13 @@ const ProgressCircle = ({
   size = 50,
   imgUrl,
   imgSize = 0.4,
+  position,
 }) => {
   const [pctState, setPctState] = useState(1);
   useEffect(() => {
     setTimeout(() => {
       setPctState(cleanPercentage(percentage));
-    }, 100);
+    }, 100 + position * 100);
   }, []);
 
   return (

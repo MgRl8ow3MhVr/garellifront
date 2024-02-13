@@ -94,3 +94,12 @@ a {
   align-items: center;
   position: relative;
 }
+
+.clickableup {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.clickableup:hover {
+  transform: translateY(-0.1rem);
+}

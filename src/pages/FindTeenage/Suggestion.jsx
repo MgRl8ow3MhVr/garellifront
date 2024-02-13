@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { appStore } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 const Suggestion = ({ s, i, exit }) => {
