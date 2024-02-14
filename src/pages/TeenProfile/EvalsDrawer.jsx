@@ -1,42 +1,39 @@
-import { useRef } from "react";
 import ProgressCircle from "../../components/ProgressCircle/ProgressCircle";
 import { CSSTransition } from "react-transition-group";
 
-const EvalsDrawer = ({ catsAdvance, openDrawer }) => {
-  const nodeRef = useRef(null);
-
-  const line1Cats = catsAdvance.slice(0, 3);
-  const line2Cats = catsAdvance.slice(3, 7);
+const EvalsDrawer = ({ progression, openDrawer }) => {
+  if (progression.length < 7) {
+    return null;
+  }
+  const line1Cats = progression.slice(0, 3);
+  const line2Cats = progression.slice(3, 7);
   return (
     <CSSTransition
-      nodeRef={nodeRef}
       in={openDrawer}
       timeout={600}
       classNames="drawer"
       unmountOnExit
     >
-      <div ref={nodeRef}>
-        <div className="catLineContainer">
+      <div>
+        <div className="catLine1Container">
           {line1Cats.map((cat, j) => (
             <ProgressCircle
               key={j}
               percentage={cat.percent}
-              imgUrl={cat.icon}
+              imgUrl={cat.url}
               size={35}
               position={j}
-              colourIn="#ffe3c2"
             />
           ))}
         </div>
-        <div className="catLineContainer">
+        <div className="catLine2Container">
           {line2Cats.map((cat, j) => (
             <ProgressCircle
               key={j}
               percentage={cat.percent}
-              imgUrl={cat.icon}
+              imgUrl={cat.url}
               size={35}
               position={j}
-              colourIn="#ffe3c2"
             />
           ))}
         </div>

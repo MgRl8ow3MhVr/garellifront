@@ -35,6 +35,7 @@ const LoginPage = () => {
         <div style={{ height: "2rem" }}></div>
 
         <button
+          className="button"
           onClick={() => {
             apiLogin({ identifier, password });
           }}

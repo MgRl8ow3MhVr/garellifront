@@ -13,6 +13,9 @@ export const appStore = create((set, get) => ({
   teen: null,
   evalTimes: null,
   snackbar: { on: false, text: "", error: false },
+  currentEval: null,
+
+  // UTILITIES
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
   showSnackbar: (text, error = false) =>
@@ -54,6 +57,10 @@ export const appStore = create((set, get) => ({
     } catch (error) {
       if (failAction) {
         failAction(error);
+      } else {
+        () => {
+          get().showSnackbar("Problème réseau");
+        };
       }
       console.error(
         "There has been a problem with your fetch operation:",
@@ -83,6 +90,7 @@ export const appStore = create((set, get) => ({
         localStorage.setItem("id", data.user?.id);
         localStorage.setItem("username", data.user?.username);
         localStorage.setItem("email", data.user?.email);
+        localStorage.setItem("entity", data.user?.email);
       },
       () => {
         get().showSnackbar("Identifiant ou mot de passe non reconnu", true);
@@ -123,6 +131,8 @@ export const appStore = create((set, get) => ({
     const query = queryMaker({
       populate: [
         `[evaluations][fields][0]=status`,
+        `[evaluations][fields][1]=progression`,
+        `[evaluations][fields][2]=latest`,
         `[evaluations][populate][0]=evaluation_time`,
       ],
     });
@@ -139,10 +149,9 @@ export const appStore = create((set, get) => ({
             evaluations: data.attributes?.evaluations?.data,
           },
         }));
-        get().showSnackbar(`Yessaie`);
       },
       () => {
-        get().showSnackbar("Il y a eu un pb avec le gars");
+        get().showSnackbar("Problème réseau pour récupérer le jeune");
       }
     );
   },
@@ -160,9 +169,19 @@ export const appStore = create((set, get) => ({
             };
           }),
         }));
-      },
-      () => {
-        get().showSnackbar("Problème réseau pour récupérer les temporalités");
+      }
+    );
+    // return response?.data?.attributes.?evaluations?.data;
+  },
+
+  apiCreateEval: async (evaluation_time) => {
+    const response = await get().fetchApi(
+      `/evaluations`,
+      { data: { evaluation_time, teenager: get().teen.id } },
+      "POST",
+      ({ data }) => {
+        set((state) => ({ currentEval: data.attributes.answers })),
+          get().showSnackbar("Démarrez l'évaluation");
       }
     );
     // return response?.data?.attributes.?evaluations?.data;

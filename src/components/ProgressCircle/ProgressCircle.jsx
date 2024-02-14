@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { bgColor, typoColor } from "../../config";
+import { colors } from "../../config";
 import "./ProgressCircle.css";
 
 const cleanPercentage = (percentage) => {
@@ -19,7 +19,7 @@ const Circle = ({ colour, pct, size, colourIn }) => {
       cy={size}
       // fill="transparent"
       fill={colourIn || "transparent"}
-      stroke={strokePct !== circ ? colour : ""} // remove colour as 0% sets full circumference
+      stroke={pct ? (strokePct !== circ ? colour : "") : null} // remove colour as 0% sets full circumference
       strokeWidth={"0.25rem"}
       strokeDasharray={circ}
       strokeDashoffset={pct ? strokePct : 0}
@@ -46,14 +46,13 @@ const Text = ({ percentage }) => {
 
 const ProgressCircle = ({
   percentage,
-  colourIn = bgColor,
-  colour = typoColor,
+  colour = colors.typo,
   size = 50,
   imgUrl,
   imgSize = 0.4,
   position,
 }) => {
-  const [pctState, setPctState] = useState(1);
+  const [pctState, setPctState] = useState(percentage ? 1 : 0);
   useEffect(() => {
     setTimeout(() => {
       setPctState(cleanPercentage(percentage));
@@ -70,7 +69,7 @@ const ProgressCircle = ({
           {/* <Circle colour="lightgrey" /> */}
           <Circle
             colour={colour}
-            colourIn={colourIn}
+            colourIn={pctState === 100 ? colors.background2 : colors.button}
             pct={pctState}
             size={size}
           />
