@@ -14,10 +14,12 @@ export const appStore = create((set, get) => ({
   evalTimes: null,
   snackbar: { on: false, text: "", error: false },
   currentEval: null,
+  categories: null,
 
   // UTILITIES
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
+  resetCurrentEval: () => set((state) => ({ currentEval: null })),
   showSnackbar: (text, error = false) =>
     set(() => ({ snackbar: { on: true, text, error } })),
   disconnect: () => {
@@ -66,6 +68,7 @@ export const appStore = create((set, get) => ({
         "There has been a problem with your fetch operation:",
         error
       );
+      return "error";
     }
   },
 
@@ -180,10 +183,27 @@ export const appStore = create((set, get) => ({
       { data: { evaluation_time, teenager: get().teen.id } },
       "POST",
       ({ data }) => {
-        set((state) => ({ currentEval: data.attributes.answers })),
-          get().showSnackbar("Démarrez l'évaluation");
+        set((state) => ({ currentEval: data.attributes.answers }));
+        get().showSnackbar("Démarrez l'évaluation");
       }
     );
-    // return response?.data?.attributes.?evaluations?.data;
+    return !!response;
+  },
+  apiFetchEval: async (evalId) => {
+    const query = queryMaker({
+      fields: ["answers", "progression"],
+    });
+    const response = await get().fetchApi(
+      `/evaluations/${evalId}?${query}`,
+      null,
+      "GET",
+      ({ data }) => {
+        set((state) => ({
+          currentEval: data.attributes.answers,
+          categories: data.attributes.progression,
+        }));
+      }
+    );
+    return !!response;
   },
 }));

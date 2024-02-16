@@ -1,6 +1,6 @@
 import "./TeenProfile.css";
 import { appStore } from "../../store/store";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EvalsDrawer from "./EvalsDrawer";
 
@@ -8,12 +8,15 @@ const TeenProfile = () => {
   const apiFetchOneTeen = appStore((state) => state.apiFetchOneTeen);
   const apiFetchTimes = appStore((state) => state.apiFetchTimes);
   const apiCreateEval = appStore((state) => state.apiCreateEval);
+  const apiFetchEval = appStore((state) => state.apiFetchEval);
   const teenId = useLocation().state.teenId;
   const teen = appStore((state) => state.teen);
-  const user = appStore((state) => state.user);
   const currentEval = appStore((state) => state.currentEval);
+  const user = appStore((state) => state.user);
   const evalTimes = appStore((state) => state.evalTimes);
   const [openDrawer, setOpenDrawer] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOneTeen = async () => {
@@ -29,6 +32,13 @@ const TeenProfile = () => {
       fetchTimes();
     }
   }, []);
+
+  // This will handle the navigation to eval page in two cases : eval creation, or eval selection
+  useEffect(() => {
+    if (currentEval) {
+      navigate("/evaluation");
+    }
+  }, [currentEval]);
 
   // check the times not yet started :
   let evalsNotStarted = [];
@@ -79,7 +89,15 @@ const TeenProfile = () => {
                   }}
                 >
                   {ev.attributes?.evaluation_time.data?.attributes.name}
-                  <button>continue</button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      apiFetchEval(ev.id);
+                    }}
+                  >
+                    continue
+                  </button>
                 </div>
                 <EvalsDrawer
                   progression={ev.attributes?.progression}

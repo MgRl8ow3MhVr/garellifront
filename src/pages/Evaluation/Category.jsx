@@ -1,50 +1,39 @@
 import { CSSTransition } from "react-transition-group";
 import { useState, useRef, useEffect } from "react";
 import "./Category.css";
-import Question from "../Question/Question";
+import Question from "./Question";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import CatSelector from "../../components/CatSelector/CatSelector";
 
-function Category({ cat }) {
+function Category({ currentEval }) {
   const [transit, setTransit] = useState(true);
   const [moveDir, setMoveDir] = useState("right");
-  const [cptCat, setCptCat] = useState(0);
-  const [cptCatPrevious, setCptCatPrevious] = useState(cptCat);
+  const [currentCatIndex, setCurrentCatIndex] = useState(0);
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
+  const prev = useRef(0);
 
-  const colors = ["#ce6a6b", "#ebaca2", "#bed3c3", "#4a919e"];
+  useEffect(() => {
+    prev.current = currentCatIndex;
+  }, [currentCatIndex]);
 
   useEffect(() => {
     AOS.init();
     AOS.refresh();
   }, []);
+
+  const changeCat = (i) => {
+    if (i !== currentCatIndex) {
+      setMoveDir(i > currentCatIndex ? "up" : "down");
+      setCurrentCatIndex(i);
+      setTransit(!transit);
+    }
+  };
+
   return (
     <div className="CategoryContainer">
-      <button
-        className="buttonUp"
-        onClick={() => {
-          setMoveDir("up");
-          setCptCatPrevious(cptCat);
-          setCptCat(cptCat - 1);
-          setTransit(!transit);
-        }}
-      >
-        {`UP`}
-      </button>
-
-      <button
-        className="buttonDown"
-        onClick={() => {
-          setMoveDir("down");
-          setCptCatPrevious(cptCat);
-          setCptCat(cptCat + 1);
-          setTransit(!transit);
-        }}
-      >
-        DOWN
-      </button>
-
+      <CatSelector changeCat={changeCat} currentCatIndex={currentCatIndex} />
       <CSSTransition
         nodeRef={nodeRef}
         in={transit}
@@ -55,9 +44,9 @@ function Category({ cat }) {
         <div
           className="CategoryBox"
           ref={nodeRef}
-          style={{
-            backgroundColor: transit ? colors[cptCat] : colors[cptCatPrevious],
-          }}
+          // style={{
+          //   backgroundColor: transit ? colors[currentCatIndex] : colors[prev],
+          // }}
         >
           <div>
             <div
@@ -66,7 +55,9 @@ function Category({ cat }) {
               data-aos-duration="800"
               // data-aos-delay={500}
             >
-              categorie {transit ? cptCat : cptCatPrevious}
+              {transit
+                ? currentEval[currentCatIndex].name
+                : currentEval[prev.current].name}
             </div>
             <Question />
           </div>
@@ -82,9 +73,9 @@ function Category({ cat }) {
         <div
           className="CategoryBox"
           ref={nodeRef2}
-          style={{
-            backgroundColor: !transit ? colors[cptCat] : colors[cptCatPrevious],
-          }}
+          // style={{
+          //   backgroundColor: !transit ? colors[currentCatIndex] : colors[prev],
+          // }}
         >
           <div>
             <div
@@ -92,7 +83,9 @@ function Category({ cat }) {
               data-aos="fade-down"
               data-aos-duration="800"
             >
-              categorie {!transit ? cptCat : cptCatPrevious}
+              {!transit
+                ? currentEval[currentCatIndex].name
+                : currentEval[prev.current].name}
             </div>
             <Question />
           </div>

@@ -13,20 +13,22 @@
 }
 
 .menuIcon {
-  color: var(--typo);
-  font-size: 40px;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 2rem;
+  left: 2rem;
   z-index: 101;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .menuIcon:hover {
-  transform: scale(1.4);
+  transform: scale(1.1);
 }
 
 .menuOption {
   cursor: pointer;
+}
+
+.menuIcon {
+  width: 3rem;
 }

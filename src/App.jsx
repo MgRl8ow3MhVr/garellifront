@@ -2,9 +2,9 @@ import "./App.css";
 
 // PAGES
 import LoginPage from "./pages/Login/Login";
-import Category from "./components/Category/Category";
 import FindTeenage from "./pages/FindTeenage/FindTeenage";
 import TeenProfile from "./pages/TeenProfile/TeenProfile";
+import Evaluation from "./pages/Evaluation/Evaluation";
 
 // COMPONENTS
 import MenuPopUp from "./components/Menu/Menu";
@@ -28,7 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<FindTeenage />} />
             <Route path="/profil" element={<TeenProfile />} />
-            <Route path="/page1" element={<Category />} />
+            <Route path="/evaluation" element={<Evaluation />} />
           </Routes>
         </BrowserRouter>
       )}

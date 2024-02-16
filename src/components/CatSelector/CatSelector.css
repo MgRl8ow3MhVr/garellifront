@@ -1,0 +1,38 @@
+.selectorContainer {
+  background-color: var(--grey3);
+  /* background-color: var(--typo); */
+  color: white;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: 2rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 2rem;
+  padding: 1.5rem 4px 1.5rem 4px;
+  text-align: center;
+  width: 2rem;
+}
+
+.selectorIcon {
+  cursor: pointer;
+  transition: all 0.1s ease;
+  height: 1.4rem;
+}
+
+.selectedIcon {
+  transition: all 0.1s ease;
+  height: 2.8rem;
+}
+.selectorIcon:hover {
+  transform: scale(1.2);
+}
+
+.selectorContainer img {
+  height: 100%;
+}
