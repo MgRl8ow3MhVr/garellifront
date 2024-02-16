@@ -9,6 +9,7 @@ const CatSelector = ({ changeCat, currentCatIndex }) => {
       {categories &&
         categories.map((c, i) => (
           <div
+            key={i}
             className={i !== currentCatIndex ? "selectorIcon" : "selectedIcon"}
             onClick={() => {
               changeCat(i);

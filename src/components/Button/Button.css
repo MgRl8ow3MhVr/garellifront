@@ -1,0 +1,30 @@
+.button {
+  background-color: var(--button);
+  border: 0;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  border-radius: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  min-width: 8rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  height: 3rem;
+}
+
+.buttondisabled {
+  background-color: var(--grey3);
+  border: 0;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  border-radius: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  min-width: 8rem;
+  transition: all 0.1s;
+  height: 3rem;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}

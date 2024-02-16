@@ -1,26 +1,29 @@
-.QuestionContainer {
+.CriteriaContainer {
   width: 100%;
-  height: 200px;
+  height: 100%;
   position: relative;
-  border: 2px red solid;
+  /* border: 2px red solid; */
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.QuestionBox {
-  background-color: orange;
+.CriterionBox {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.QuestionText {
-  font-size: 25px;
-  color: white;
+.CriterionText {
+  font-size: 1.8rem;
+  color: var(--typo);
+  margin-bottom: 2rem;
 }
 
 /* # # # # # # NEXT # # # # # #  */
@@ -56,15 +59,28 @@
   transition: opacity var(--timing), transform var(--timing);
 }
 
-/* # # # # # # BUTTONS # # # # # #  */
+/* # # # # # # BOTTOM BAR # # # # # #  */
+
+.bottomBar {
+  position: absolute;
+  bottom: 0;
+  height: 3rem;
+  width: 100%;
+  background-color: white;
+  z-index: 200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
 
 .buttonNext {
   z-index: 1;
   border: solid 2px black;
   transform: translateY(20px);
-  position: absolute;
   top: 50%;
 }
+
 .buttonPrev {
   z-index: 1;
   transform: translateY(20px);
@@ -72,4 +88,40 @@
   position: absolute;
   top: 50%;
   right: 0;
+}
+
+/* # # # # # # ANSWER BUBBLES # # # # # #  */
+.answers {
+  display: flex;
+  /* background-color: aqua; */
+  align-items: center;
+}
+
+.answerBubble {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  background-color: var(--background2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.1s ease;
+  font-size: 1.5rem;
+}
+
+.answerBubble:hover {
+  transform: scale(1.2);
+}
+
+.answered {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 1rem;
+  background-color: var(--button);
+}
+
+.answerSeparator {
+  width: 3rem;
+  height: 0.4rem;
+  background-color: var(--background2);
 }

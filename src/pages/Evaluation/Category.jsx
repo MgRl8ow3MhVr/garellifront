@@ -1,7 +1,7 @@
 import { CSSTransition } from "react-transition-group";
 import { useState, useRef, useEffect } from "react";
 import "./Category.css";
-import Question from "./Question";
+import Criteria from "./Criteria";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CatSelector from "../../components/CatSelector/CatSelector";
@@ -14,6 +14,8 @@ function Category({ currentEval }) {
   const nodeRef2 = useRef(null);
   const prev = useRef(0);
 
+  console.log("currentEval", currentEval);
+
   useEffect(() => {
     prev.current = currentCatIndex;
   }, [currentCatIndex]);
@@ -25,7 +27,7 @@ function Category({ currentEval }) {
 
   const changeCat = (i) => {
     if (i !== currentCatIndex) {
-      setMoveDir(i > currentCatIndex ? "up" : "down");
+      setMoveDir(i > currentCatIndex ? "down" : "up");
       setCurrentCatIndex(i);
       setTransit(!transit);
     }
@@ -41,26 +43,22 @@ function Category({ currentEval }) {
         classNames={`go-${moveDir}`}
         unmountOnExit
       >
-        <div
-          className="CategoryBox"
-          ref={nodeRef}
-          // style={{
-          //   backgroundColor: transit ? colors[currentCatIndex] : colors[prev],
-          // }}
-        >
-          <div>
-            <div
-              className="CategoryText"
-              data-aos="fade-down"
-              data-aos-duration="800"
-              // data-aos-delay={500}
-            >
-              {transit
-                ? currentEval[currentCatIndex].name
-                : currentEval[prev.current].name}
-            </div>
-            <Question />
+        <div className="CategoryBox" ref={nodeRef}>
+          <div
+            className="CategoryText"
+            data-aos="fade-down"
+            data-aos-duration="800"
+            // data-aos-delay={500}
+          >
+            {transit
+              ? currentEval[currentCatIndex].name
+              : currentEval[prev.current].name}
           </div>
+          <Criteria
+            criteria={
+              currentEval[transit ? currentCatIndex : prev.current].criteria
+            }
+          />
         </div>
       </CSSTransition>
       <CSSTransition
@@ -70,25 +68,21 @@ function Category({ currentEval }) {
         classNames={`go-${moveDir}`}
         unmountOnExit
       >
-        <div
-          className="CategoryBox"
-          ref={nodeRef2}
-          // style={{
-          //   backgroundColor: !transit ? colors[currentCatIndex] : colors[prev],
-          // }}
-        >
-          <div>
-            <div
-              className="CategoryText"
-              data-aos="fade-down"
-              data-aos-duration="800"
-            >
-              {!transit
-                ? currentEval[currentCatIndex].name
-                : currentEval[prev.current].name}
-            </div>
-            <Question />
+        <div className="CategoryBox" ref={nodeRef2}>
+          <div
+            className="CategoryText"
+            data-aos="fade-down"
+            data-aos-duration="800"
+          >
+            {!transit
+              ? currentEval[currentCatIndex].name
+              : currentEval[prev.current].name}
           </div>
+          <Criteria
+            criteria={
+              currentEval[!transit ? currentCatIndex : prev.current].criteria
+            }
+          />
         </div>
       </CSSTransition>
     </div>

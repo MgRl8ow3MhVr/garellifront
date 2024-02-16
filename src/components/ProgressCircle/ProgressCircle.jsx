@@ -17,7 +17,6 @@ const Circle = ({ colour, pct, size, colourIn }) => {
       r={r}
       cx={size}
       cy={size}
-      // fill="transparent"
       fill={colourIn || "transparent"}
       stroke={pct ? (strokePct !== circ ? colour : "") : null} // remove colour as 0% sets full circumference
       strokeWidth={"0.25rem"}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { appStore } from "../../store/store";
 import logo1 from "../../assets/icons/logobosco.png";
 import logo2 from "../../assets/icons/logog95.png";
+import Button from "../../components/Button/Button";
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState("");
@@ -34,14 +35,13 @@ const LoginPage = () => {
         />
         <div style={{ height: "2rem" }}></div>
 
-        <button
-          className="button"
-          onClick={() => {
+        <Button
+          text="Valider"
+          action={() => {
             apiLogin({ identifier, password });
           }}
-        >
-          Valider
-        </button>
+          disabled={identifier.length < 2 || password.length < 6}
+        />
       </div>
       <div className="loginBlockDown">
         <img src={logo1} />

@@ -56,23 +56,6 @@ input {
   opacity: 1; /* Firefox */
 }
 
-.button {
-  background-color: var(--button);
-  border: 0;
-  padding: 0.8rem;
-  font-size: 1rem;
-  border-radius: 1.5rem;
-  font-weight: 500;
-  margin: 0;
-  min-width: 8rem;
-  cursor: pointer;
-  transition: all 0.1s;
-}
-
-.button:hover {
-  transform: scale(1.05);
-}
-
 input:focus {
   outline-width: 0;
 }
