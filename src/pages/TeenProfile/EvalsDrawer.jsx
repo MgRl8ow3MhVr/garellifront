@@ -1,12 +1,16 @@
 import ProgressCircle from "../../components/ProgressCircle/ProgressCircle";
 import { CSSTransition } from "react-transition-group";
+import { appStore } from "../../store/store";
 
-const EvalsDrawer = ({ progression, openDrawer }) => {
+const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
   if (progression.length < 7) {
     return null;
   }
   const line1Cats = progression.slice(0, 3);
   const line2Cats = progression.slice(3, 7);
+
+  const apiFetchEval = appStore((state) => state.apiFetchEval);
+
   return (
     <CSSTransition
       in={openDrawer}
@@ -23,6 +27,9 @@ const EvalsDrawer = ({ progression, openDrawer }) => {
               imgUrl={cat.url}
               size={35}
               position={j}
+              action={() => {
+                apiFetchEval(evalId, j);
+              }}
             />
           ))}
         </div>
@@ -34,6 +41,9 @@ const EvalsDrawer = ({ progression, openDrawer }) => {
               imgUrl={cat.url}
               size={35}
               position={j}
+              action={() => {
+                apiFetchEval(evalId, j + 3);
+              }}
             />
           ))}
         </div>

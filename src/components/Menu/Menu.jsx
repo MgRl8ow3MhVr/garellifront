@@ -3,13 +3,17 @@ import { useState } from "react";
 import { appStore } from "../../store/store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { colors } from "../../config";
+import LogOut from "../../assets/icons/LogOut.png";
 
 const MenuPopUp = () => {
   const [open, setOpen] = useState(false);
   const disconnect = appStore((state) => state.disconnect);
   const resetCurrentEval = appStore((state) => state.resetCurrentEval);
+  const teen = appStore((state) => state.teen);
+  const resetTeen = appStore((state) => state.resetTeen);
   const navigate = useNavigate();
   const location = useLocation();
+  const loc = location.pathname;
 
   const svgMenu = (
     <svg
@@ -19,7 +23,7 @@ const MenuPopUp = () => {
       // width="120.34"
       // height="97.56"
       viewBox="0 0 120.34 97.56"
-      fill={location.pathname !== "/profil" ? colors.typo : colors.background1}
+      fill={loc !== "/profil" ? colors.typo : colors.background1}
     >
       <path
         id="Menu"
@@ -37,23 +41,38 @@ const MenuPopUp = () => {
         }}
         className="menuIcon"
       >
-        {svgMenu}
+        {loc !== "/" ? svgMenu : <img src={LogOut} />}
       </div>
       {open && (
-        <div className="menuContainer">
+        <div className="menuContainer appearAnim">
           <div className="menuOption" onClick={disconnect}>
-            DISCONNECT
+            disconnect
           </div>
-          <div
-            className="menuOption"
-            onClick={() => {
-              navigate("/");
-              resetCurrentEval();
-              setOpen(false);
-            }}
-          >
-            RETOUR HOME
-          </div>
+          {loc !== "/" && (
+            <div
+              className="menuOption"
+              onClick={() => {
+                navigate("/");
+                resetCurrentEval();
+                resetTeen();
+                setOpen(false);
+              }}
+            >
+              recherche
+            </div>
+          )}
+          {loc === "/evaluation" && (
+            <div
+              className="menuOption"
+              onClick={() => {
+                resetCurrentEval();
+                navigate("/profil", { state: { teenId: teen.id } });
+                setOpen(false);
+              }}
+            >
+              profil
+            </div>
+          )}
         </div>
       )}
     </>

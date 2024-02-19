@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import CatSelector from "../../components/CatSelector/CatSelector";
 import { appStore } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const CategoryComponent = ({ inparam, node, category, moveDir }) => {
   return (
@@ -35,6 +36,7 @@ const Category = () => {
   const [moveDir, setMoveDir] = useState("right");
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
+  const navigate = useNavigate();
 
   const { answers } = appStore((state) => state.currentEval);
 
@@ -44,6 +46,9 @@ const Category = () => {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
+    if (!answers) {
+      navigate("/");
+    }
   }, []);
 
   const changeCat = (i) => {
@@ -55,7 +60,7 @@ const Category = () => {
   };
 
   if (!answers) {
-    return <div>Evaluation manquante</div>;
+    return null;
   }
 
   return (

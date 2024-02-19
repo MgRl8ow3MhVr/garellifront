@@ -78,13 +78,22 @@ a {
   position: relative;
 }
 
-.clickableup {
+.hoverbright {
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.clickableup:hover {
+.hoverbright:hover {
   filter: brightness(1.4);
+}
+
+.hoverbig {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.hoverbig:hover {
+  transform: scale(1.1);
 }
 
 @keyframes appear {

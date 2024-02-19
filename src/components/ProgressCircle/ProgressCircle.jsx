@@ -50,6 +50,7 @@ const ProgressCircle = ({
   imgUrl,
   imgSize = 0.4,
   position,
+  action,
 }) => {
   const [pctState, setPctState] = useState(percentage ? 1 : 0);
   useEffect(() => {
@@ -60,8 +61,9 @@ const ProgressCircle = ({
 
   return (
     <div
-      className="svgProgressBar"
+      className="svgProgressBar hoverbig"
       style={{ width: 2 * size, height: 2 * size }}
+      onClick={action}
     >
       <svg width={2 * size} height={2 * size}>
         <g transform={`rotate(-90 ${size} ${size})`}>

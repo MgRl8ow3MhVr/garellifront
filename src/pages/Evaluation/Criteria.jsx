@@ -83,9 +83,20 @@ function Criteria({ criteria }) {
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
 
+  console.log("criteria", criteria);
+
   useEffect(() => {
     AOS.init();
     AOS.refresh();
+    // looking for the last answered and go there
+    let latestAnswerPos = 0;
+    criteria.forEach((c, i) => {
+      console.log(i);
+      if (c.answer || c.answer === 0) {
+        latestAnswerPos = i;
+      }
+    });
+    changeCritIndex(latestAnswerPos);
   }, []);
 
   const changeCrit = (i) => {

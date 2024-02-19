@@ -6,7 +6,6 @@ const ProgressBar = () => {
   const { critIndex, catIndex } = appStore((state) => state.currentIndexes);
   const { answers } = appStore((state) => state.currentEval);
   const criteria = answers[catIndex].criteria;
-  console.log(criteria);
   const max = criteria.length;
 
   const mycolor = (i) => {
@@ -26,6 +25,7 @@ const ProgressBar = () => {
       </div>
       {criteria.map((crit, i) => (
         <div
+          key={i}
           className={`progressItem ${i === 0 && "first"} ${
             i === max - 1 && "last"
           }`}

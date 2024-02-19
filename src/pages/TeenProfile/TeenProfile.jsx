@@ -8,8 +8,8 @@ const TeenProfile = () => {
   const apiFetchOneTeen = appStore((state) => state.apiFetchOneTeen);
   const apiFetchTimes = appStore((state) => state.apiFetchTimes);
   const apiCreateEval = appStore((state) => state.apiCreateEval);
-  const apiFetchEval = appStore((state) => state.apiFetchEval);
-  const teenId = useLocation().state.teenId;
+  // const apiFetchEval = appStore((state) => state.apiFetchEval);
+  const teenId = useLocation()?.state?.teenId;
   const teen = appStore((state) => state.teen);
   const currentEval = appStore((state) => state.currentEval);
   const user = appStore((state) => state.user);
@@ -33,14 +33,14 @@ const TeenProfile = () => {
     }
   }, []);
 
-  // This will handle the navigation to eval page in two cases : eval creation, or eval selection
+  // This will handle the navigation to evaluation page in two cases : eval creation, or eval selection
   useEffect(() => {
-    if (currentEval) {
+    if (currentEval.answers) {
       navigate("/evaluation");
     }
   }, [currentEval]);
 
-  // check the times not yet started :
+  // check the eval_times not yet started :
   let evalsNotStarted = [];
   if (evalTimes && teen && teen.evaluations) {
     evalsNotStarted = evalTimes.filter(
@@ -82,14 +82,14 @@ const TeenProfile = () => {
             return (
               <div className="teenEvalsContainer" key={i}>
                 <div
-                  className="teenEvalsTime clickableup"
+                  className="teenEvalsTime hoverbright"
                   key={i}
                   onClick={() => {
                     setOpenDrawer(openDrawer !== i ? i : null);
                   }}
                 >
                   {ev.attributes?.evaluation_time.data?.attributes.name}
-                  <button
+                  {/* <button
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -97,11 +97,12 @@ const TeenProfile = () => {
                     }}
                   >
                     continue
-                  </button>
+                  </button> */}
                 </div>
                 <EvalsDrawer
                   progression={ev.attributes?.progression}
                   openDrawer={openDrawer === i}
+                  evalId={ev.id}
                 />
               </div>
             );

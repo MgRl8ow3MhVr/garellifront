@@ -16,9 +16,13 @@ export const appStore = create((set, get) => ({
   currentEval: { answers: null, categories: null, id: null },
   currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
   // UTILITIES
+  resetTeen: () => set((state) => ({ teen: null })),
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
-  resetCurrentEval: () => set((state) => ({ currentEval: null })),
+  resetCurrentEval: () =>
+    set((state) => ({
+      currentEval: { answers: null, categories: null, id: null },
+    })),
   changeCatIndex: (i) =>
     set((state) => ({
       currentIndexes: {
@@ -199,13 +203,19 @@ export const appStore = create((set, get) => ({
       { data: { evaluation_time, teenager: get().teen.id } },
       "POST",
       ({ data }) => {
-        set((state) => ({ currentEval: data.attributes.answers }));
+        set((state) => ({
+          currentEval: {
+            answers: data.attributes.answers,
+            categories: data.attributes.progression,
+            id: data.id,
+          },
+        }));
         get().showSnackbar("Démarrez l'évaluation");
       }
     );
     return !!response;
   },
-  apiFetchEval: async (evalId) => {
+  apiFetchEval: async (evalId, catPos) => {
     const query = queryMaker({
       fields: ["answers", "progression"],
     });
@@ -219,6 +229,10 @@ export const appStore = create((set, get) => ({
             answers: data.attributes.answers,
             categories: data.attributes.progression,
             id: data.id,
+          },
+          currentIndexes: {
+            ...state.currentIndexes,
+            catIndex: catPos,
           },
         }));
       }
