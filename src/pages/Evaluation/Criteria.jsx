@@ -29,13 +29,19 @@ const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
       <div className="CriterionBox" ref={node}>
         <div
           className="CriterionText"
-          data-aos="fade-right"
+          data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay={0}
         >
+          {criterion.icon?.url && <img src={criterion.icon?.url} />}
           {criterion.name}
         </div>
-        <div className="answers">
+        <div
+          className="answers"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay={0}
+        >
           {Array(criterion.scale + 1)
             .fill("")
             .map((e, i) => {
@@ -91,7 +97,6 @@ function Criteria({ criteria }) {
     // looking for the last answered and go there
     let latestAnswerPos = 0;
     criteria.forEach((c, i) => {
-      console.log(i);
       if (c.answer || c.answer === 0) {
         latestAnswerPos = i;
       }

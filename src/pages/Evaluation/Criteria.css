@@ -26,6 +26,11 @@
   margin-bottom: 2rem;
 }
 
+.CriterionText > img {
+  height: 1.8rem;
+  margin-right: 1.5rem;
+}
+
 /* # # # # # # NEXT # # # # # #  */
 .go-right-enter {
   transform: scale(1) translateX(100%);
@@ -66,6 +71,7 @@
   bottom: 0;
   height: 5rem;
   width: 100%;
+  /* background-color: var(--background1); */
   background-color: white;
   z-index: 200;
   display: flex;

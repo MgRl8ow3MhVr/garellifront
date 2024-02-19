@@ -157,6 +157,7 @@ export const appStore = create((set, get) => ({
         `[evaluations][fields][1]=progression`,
         `[evaluations][fields][2]=latest`,
         `[evaluations][populate][0]=evaluation_time`,
+        "[photo][fields][0]=url",
       ],
     });
 
@@ -170,6 +171,7 @@ export const appStore = create((set, get) => ({
             id: data.id,
             ...data?.attributes,
             evaluations: data.attributes?.evaluations?.data,
+            photo: data.attributes?.photo?.data?.attributes?.url,
           },
         }));
       },
@@ -239,6 +241,9 @@ export const appStore = create((set, get) => ({
     );
     return !!response;
   },
+
+  // # # # # # # # SCREEN EVALUATION # # # # # # #
+
   apiAnswer: async (value) => {
     const cat_index = get().currentIndexes?.catIndex;
     const crit_index = get().currentIndexes?.critIndex;

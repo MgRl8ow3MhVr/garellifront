@@ -17,7 +17,7 @@ const TeenProfile = () => {
   const [openDrawer, setOpenDrawer] = useState(null);
 
   const navigate = useNavigate();
-
+  console.log("myteen", teen);
   useEffect(() => {
     const fetchOneTeen = async () => {
       await apiFetchOneTeen(teenId);
@@ -54,6 +54,11 @@ const TeenProfile = () => {
   return (
     <div className="teenContainer">
       <div className="teenBlockTeen">
+        <div className="photoBlock">
+          <div className="photoContainer">
+            {teen.photo && <img src={teen.photo} />}
+          </div>
+        </div>
         <div className="teenInfos">
           <p>
             Nom : <span>{teen.last_name}</span>
@@ -77,19 +82,20 @@ const TeenProfile = () => {
       </div>
       <div className="teenBlockEvals">
         <div className="teenEvalsTitle">grille d'observation</div>
-        {teen.evaluations &&
-          teen.evaluations.map((ev, i) => {
-            return (
-              <div className="teenEvalsContainer" key={i}>
-                <div
-                  className="teenEvalsTime hoverbright"
-                  key={i}
-                  onClick={() => {
-                    setOpenDrawer(openDrawer !== i ? i : null);
-                  }}
-                >
-                  {ev.attributes?.evaluation_time.data?.attributes.name}
-                  {/* <button
+        <div className="evalsBlock">
+          {teen.evaluations &&
+            teen.evaluations.map((ev, i) => {
+              return (
+                <div className="teenEvalsContainer" key={i}>
+                  <div
+                    className="teenEvalsTime hoverbright"
+                    key={i}
+                    onClick={() => {
+                      setOpenDrawer(openDrawer !== i ? i : null);
+                    }}
+                  >
+                    {ev.attributes?.evaluation_time.data?.attributes.name}
+                    {/* <button
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -98,31 +104,32 @@ const TeenProfile = () => {
                   >
                     continue
                   </button> */}
+                  </div>
+                  <EvalsDrawer
+                    progression={ev.attributes?.progression}
+                    openDrawer={openDrawer === i}
+                    evalId={ev.id}
+                  />
                 </div>
-                <EvalsDrawer
-                  progression={ev.attributes?.progression}
-                  openDrawer={openDrawer === i}
-                  evalId={ev.id}
-                />
+              );
+            })}
+          {evalsNotStarted.map((ev, i) => {
+            return (
+              <div className="teenEvalsContainer" key={i}>
+                <div className="teenEvalsTime notselected" key={i}>
+                  {ev.name}
+                  <button
+                    onClick={() => {
+                      apiCreateEval(ev.id);
+                    }}
+                  >
+                    start
+                  </button>
+                </div>
               </div>
             );
           })}
-        {evalsNotStarted.map((ev, i) => {
-          return (
-            <div className="teenEvalsContainer" key={i}>
-              <div className="teenEvalsTime notselected" key={i}>
-                {ev.name}
-                <button
-                  onClick={() => {
-                    apiCreateEval(ev.id);
-                  }}
-                >
-                  start
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        </div>
       </div>
     </div>
   );
