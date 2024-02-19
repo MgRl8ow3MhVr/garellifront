@@ -1,0 +1,27 @@
+.progressContainer {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.progressNums {
+  font-size: 0.7rem;
+  margin-right: 0.3rem;
+}
+
+.progressItem {
+  width: 1.3rem;
+  height: 0.6rem;
+  background-color: var(--done);
+  transition: all 0.3s;
+}
+
+.progressItem.first {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.progressItem.last {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}

@@ -5,20 +5,41 @@ import Criteria from "./Criteria";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CatSelector from "../../components/CatSelector/CatSelector";
+import { appStore } from "../../store/store";
 
-function Category({ currentEval }) {
+const CategoryComponent = ({ inparam, node, category, moveDir }) => {
+  return (
+    <CSSTransition
+      nodeRef={node}
+      in={inparam}
+      timeout={500}
+      classNames={`go-${moveDir}`}
+      unmountOnExit
+    >
+      <div className="CategoryBox" ref={node}>
+        <div
+          className="CategoryTitle"
+          data-aos="fade-down"
+          data-aos-duration="800"
+        >
+          <img src={category?.icon?.url} />
+          {category.name}
+        </div>
+        <Criteria criteria={category.criteria} />
+      </div>
+    </CSSTransition>
+  );
+};
+const Category = () => {
   const [transit, setTransit] = useState(true);
   const [moveDir, setMoveDir] = useState("right");
-  const [currentCatIndex, setCurrentCatIndex] = useState(0);
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
-  const prev = useRef(0);
 
-  console.log("currentEval", currentEval);
+  const { answers } = appStore((state) => state.currentEval);
 
-  useEffect(() => {
-    prev.current = currentCatIndex;
-  }, [currentCatIndex]);
+  const { catIndex, catPrev } = appStore((state) => state.currentIndexes);
+  const changeCatIndex = appStore((state) => state.changeCatIndex);
 
   useEffect(() => {
     AOS.init();
@@ -26,67 +47,34 @@ function Category({ currentEval }) {
   }, []);
 
   const changeCat = (i) => {
-    if (i !== currentCatIndex) {
-      setMoveDir(i > currentCatIndex ? "down" : "up");
-      setCurrentCatIndex(i);
+    if (i !== catIndex) {
+      changeCatIndex(i);
+      setMoveDir(i > catIndex ? "down" : "up");
       setTransit(!transit);
     }
   };
 
+  if (!answers) {
+    return <div>Evaluation manquante</div>;
+  }
+
   return (
     <div className="CategoryContainer">
-      <CatSelector changeCat={changeCat} currentCatIndex={currentCatIndex} />
-      <CSSTransition
-        nodeRef={nodeRef}
-        in={transit}
-        timeout={500}
-        classNames={`go-${moveDir}`}
-        unmountOnExit
-      >
-        <div className="CategoryBox" ref={nodeRef}>
-          <div
-            className="CategoryText"
-            data-aos="fade-down"
-            data-aos-duration="800"
-            // data-aos-delay={500}
-          >
-            {transit
-              ? currentEval[currentCatIndex].name
-              : currentEval[prev.current].name}
-          </div>
-          <Criteria
-            criteria={
-              currentEval[transit ? currentCatIndex : prev.current].criteria
-            }
-          />
-        </div>
-      </CSSTransition>
-      <CSSTransition
-        nodeRef={nodeRef2}
-        in={!transit}
-        timeout={500}
-        classNames={`go-${moveDir}`}
-        unmountOnExit
-      >
-        <div className="CategoryBox" ref={nodeRef2}>
-          <div
-            className="CategoryText"
-            data-aos="fade-down"
-            data-aos-duration="800"
-          >
-            {!transit
-              ? currentEval[currentCatIndex].name
-              : currentEval[prev.current].name}
-          </div>
-          <Criteria
-            criteria={
-              currentEval[!transit ? currentCatIndex : prev.current].criteria
-            }
-          />
-        </div>
-      </CSSTransition>
+      <CatSelector changeCat={changeCat} catIndex={catIndex} />
+      <CategoryComponent
+        inparam={transit}
+        node={nodeRef}
+        category={answers[transit ? catIndex : catPrev]}
+        moveDir={moveDir}
+      />
+      <CategoryComponent
+        inparam={!transit}
+        node={nodeRef2}
+        category={answers[!transit ? catIndex : catPrev]}
+        moveDir={moveDir}
+      />
     </div>
   );
-}
+};
 
 export default Category;

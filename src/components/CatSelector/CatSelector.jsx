@@ -1,8 +1,8 @@
 import "./CatSelector.css";
 import { appStore } from "../../store/store";
 
-const CatSelector = ({ changeCat, currentCatIndex }) => {
-  const categories = appStore((state) => state.categories);
+const CatSelector = ({ changeCat, catIndex }) => {
+  const categories = appStore((state) => state.currentEval.categories);
 
   return (
     <div className="selectorContainer">
@@ -10,7 +10,7 @@ const CatSelector = ({ changeCat, currentCatIndex }) => {
         categories.map((c, i) => (
           <div
             key={i}
-            className={i !== currentCatIndex ? "selectorIcon" : "selectedIcon"}
+            className={i !== catIndex ? "selectorIcon" : "selectedIcon"}
             onClick={() => {
               changeCat(i);
             }}

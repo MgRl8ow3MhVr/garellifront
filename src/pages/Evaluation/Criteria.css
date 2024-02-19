@@ -64,36 +64,25 @@
 .bottomBar {
   position: absolute;
   bottom: 0;
-  height: 3rem;
+  height: 5rem;
   width: 100%;
   background-color: white;
   z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-}
-
-.buttonNext {
-  z-index: 1;
-  border: solid 2px black;
-  transform: translateY(20px);
-  top: 50%;
-}
-
-.buttonPrev {
-  z-index: 1;
-  transform: translateY(20px);
-  border: solid 2px black;
-  position: absolute;
-  top: 50%;
-  right: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
 }
 
 /* # # # # # # ANSWER BUBBLES # # # # # #  */
 .answers {
   display: flex;
-  /* background-color: aqua; */
+  align-items: center;
+}
+.answers > div {
+  display: flex;
   align-items: center;
 }
 
@@ -107,6 +96,8 @@
   align-items: center;
   transition: transform 0.1s ease;
   font-size: 1.5rem;
+  cursor: pointer;
+  position: relative;
 }
 
 .answerBubble:hover {
@@ -118,6 +109,7 @@
   height: 2.3rem;
   border-radius: 1rem;
   background-color: var(--button);
+  text-align: center;
 }
 
 .answerSeparator {

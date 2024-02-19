@@ -14,11 +14,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* border: 1px orange solid; */
 }
 
-.CategoryText {
-  color: black;
-  font-size: 50px;
+.CategoryTitle {
+  /* border: 1px blue solid; */
+  padding-top: 3rem;
+  color: var(--typo);
+  font-size: 3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-transform: uppercase;
+}
+.CategoryTitle > img {
+  height: 2.5rem;
 }
 
 /* # # # # # # UP # # # # # #  */
@@ -53,26 +64,4 @@
 .go-down-exit-active {
   transform: translateY(-100%);
   transition: opacity var(--timing), transform var(--timing);
-}
-
-/* # # # # # # BUTTONS # # # # # #  */
-
-.buttonDown {
-  z-index: 1;
-  transform: translateY(20px);
-  border: solid 2px black;
-  position: absolute;
-  bottom: 40px;
-  right: 50%;
-  transform: translateX(50%);
-}
-
-.buttonUp {
-  z-index: 1;
-  transform: translateY(20px);
-  border: solid 2px black;
-  position: absolute;
-  top: 40px;
-  right: 50%;
-  transform: translateX(50%);
 }

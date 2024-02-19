@@ -13,13 +13,29 @@ export const appStore = create((set, get) => ({
   teen: null,
   evalTimes: null,
   snackbar: { on: false, text: "", error: false },
-  currentEval: null,
-  categories: null,
-
+  currentEval: { answers: null, categories: null, id: null },
+  currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
   // UTILITIES
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
   resetCurrentEval: () => set((state) => ({ currentEval: null })),
+  changeCatIndex: (i) =>
+    set((state) => ({
+      currentIndexes: {
+        ...state.currentIndexes,
+        catIndex: i,
+        catPrev: state.currentIndexes.catIndex,
+      },
+    })),
+  changeCritIndex: (i) =>
+    set((state) => ({
+      currentIndexes: {
+        ...state.currentIndexes,
+        critIndex: i,
+        critPrev: state.currentIndexes.critIndex,
+      },
+    })),
+
   showSnackbar: (text, error = false) =>
     set(() => ({ snackbar: { on: true, text, error } })),
   disconnect: () => {
@@ -199,11 +215,34 @@ export const appStore = create((set, get) => ({
       "GET",
       ({ data }) => {
         set((state) => ({
-          currentEval: data.attributes.answers,
-          categories: data.attributes.progression,
+          currentEval: {
+            answers: data.attributes.answers,
+            categories: data.attributes.progression,
+            id: data.id,
+          },
         }));
       }
     );
+    return !!response;
+  },
+  apiAnswer: async (value) => {
+    const cat_index = get().currentIndexes?.catIndex;
+    const crit_index = get().currentIndexes?.critIndex;
+    const id = get().currentEval?.id;
+    const response = await get().fetchApi(
+      `/evaluations/addanswer/${id}?cat_index=${cat_index}&crit_index=${crit_index}&value=${value}`,
+      {},
+      "POST",
+      ({ data }) => {
+        set((state) => ({
+          currentEval: {
+            ...state.currentEval,
+            answers: data.attributes.answers,
+          },
+        }));
+      }
+    );
+
     return !!response;
   },
 }));
