@@ -15,28 +15,25 @@ const LoginPage = () => {
     <div className="loginContainer">
       <div className="loginBlockUp">
         <div className="loginTitle">ACQUIS DES JEUNES</div>
-        <div style={{ height: "5rem" }}></div>
         <input
           type="text"
-          placeholder="identifiant"
+          placeholder="Identifiant"
           value={identifier}
           onChange={(e) => {
             setIdentifier(e.target.value);
           }}
         />
-        <div style={{ height: "2rem" }}></div>
         <input
           type="password"
-          placeholder="mot de passe"
+          placeholder="Mot de passe"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <div style={{ height: "2rem" }}></div>
 
         <Button
-          text="Valider"
+          text="Connexion"
           action={() => {
             apiLogin({ identifier, password });
           }}
