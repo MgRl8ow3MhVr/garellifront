@@ -1,4 +1,7 @@
 import "./TeenProfile.css";
+import ThumbUp from "../../assets/icons/ThumbUp.png";
+import Power from "../../assets/icons/power.svg";
+
 import { appStore } from "../../store/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -17,7 +20,6 @@ const TeenProfile = () => {
   const [openDrawer, setOpenDrawer] = useState(null);
 
   const navigate = useNavigate();
-  console.log("myteen", teen);
   useEffect(() => {
     const fetchOneTeen = async () => {
       await apiFetchOneTeen(teenId);
@@ -87,23 +89,23 @@ const TeenProfile = () => {
             teen.evaluations.map((ev, i) => {
               return (
                 <div className="teenEvalsContainer" key={i}>
-                  <div
-                    className="teenEvalsTime hoverbright"
-                    key={i}
-                    onClick={() => {
-                      setOpenDrawer(openDrawer !== i ? i : null);
-                    }}
-                  >
-                    {ev.attributes?.evaluation_time.data?.attributes.name}
-                    {/* <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      apiFetchEval(ev.id);
-                    }}
-                  >
-                    continue
-                  </button> */}
+                  <div className="teenEvalsTime" key={i}>
+                    <div
+                      className="hoveryellow"
+                      onClick={() => {
+                        setOpenDrawer(openDrawer !== i ? i : null);
+                      }}
+                    >
+                      {ev.attributes?.evaluation_time.data?.attributes.name}
+                    </div>
+                    <div
+                      className="teenEvalsAction hoverbig"
+                      onClick={() => {
+                        console.log("clic");
+                      }}
+                    >
+                      <img src={ThumbUp} />
+                    </div>
                   </div>
                   <EvalsDrawer
                     progression={ev.attributes?.progression}
@@ -117,14 +119,15 @@ const TeenProfile = () => {
             return (
               <div className="teenEvalsContainer" key={i}>
                 <div className="teenEvalsTime notselected" key={i}>
-                  {ev.name}
-                  <button
+                  <div> {ev.name}</div>
+                  <div
+                    className="teenEvalsAction hoverbig"
                     onClick={() => {
                       apiCreateEval(ev.id);
                     }}
                   >
-                    start
-                  </button>
+                    <img src={Power} />
+                  </div>
                 </div>
               </div>
             );

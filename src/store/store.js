@@ -13,7 +13,7 @@ export const appStore = create((set, get) => ({
   teen: null,
   evalTimes: null,
   snackbar: { on: false, text: "", error: false },
-  currentEval: { answers: null, categories: null, id: null },
+  currentEval: { answers: null, categories: null, id: null, lastCat: null },
   currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
   // UTILITIES
   resetTeen: () => set((state) => ({ teen: null })),
@@ -21,7 +21,8 @@ export const appStore = create((set, get) => ({
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
   resetCurrentEval: () =>
     set((state) => ({
-      currentEval: { answers: null, categories: null, id: null },
+      currentEval: { answers: null, categories: null, id: null, lastCat: null },
+      currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
     })),
   changeCatIndex: (i) =>
     set((state) => ({
@@ -210,6 +211,7 @@ export const appStore = create((set, get) => ({
             answers: data.attributes.answers,
             categories: data.attributes.progression,
             id: data.id,
+            lastCat: data.attributes?.progression?.length - 1,
           },
         }));
         get().showSnackbar("Démarrez l'évaluation");
@@ -231,6 +233,7 @@ export const appStore = create((set, get) => ({
             answers: data.attributes.answers,
             categories: data.attributes.progression,
             id: data.id,
+            lastCat: data.attributes?.progression?.length - 1,
           },
           currentIndexes: {
             ...state.currentIndexes,

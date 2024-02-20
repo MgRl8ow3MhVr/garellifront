@@ -74,9 +74,7 @@
 
 .evalsBlock {
   margin-top: -2rem;
-
   flex: 1;
-  /* border: solid 1px green; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,14 +89,26 @@
   background-color: var(--typo);
   color: var(--background1);
   font-size: 1.2rem;
-  padding-left: 2rem;
-  /* padding-right: 2rem; */
+  padding-right: 1.5rem;
   display: flex;
   justify-content: space-between;
+}
+.teenEvalsTime > div:first-child {
+  width: 100%;
+  padding-left: 2rem;
 }
 
 .teenEvalsTime.notselected {
   background-color: var(--grey2);
+}
+
+.teenEvalsAction {
+  display: flex;
+  align-items: center;
+}
+
+.teenEvalsAction > img {
+  height: 1.3rem;
 }
 
 /*  # # # # # # # # DRAWERS # # # # # # # # */

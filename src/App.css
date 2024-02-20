@@ -96,6 +96,15 @@ a {
   transform: scale(1.1);
 }
 
+.hoveryellow {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.hoveryellow:hover {
+  color: var(--button);
+}
+
 @keyframes appear {
   from {
     opacity: 0;

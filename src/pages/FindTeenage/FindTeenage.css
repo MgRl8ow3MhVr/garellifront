@@ -10,11 +10,11 @@
   height: 100%;
   position: relative;
   align-items: center;
-  padding-top: 33%;
   /* overflow: hidden; */
 }
 
 .findTeenTitle {
+  padding-top: 8rem;
   font-size: 3rem;
 }
 
@@ -62,6 +62,19 @@
 
 .findTeenDate {
   color: var(--grey2);
+}
+
+.findTeenUser {
+  /* border: solid 1px red; */
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.findTeenUser > img {
+  height: 2rem;
 }
 
 /* # # # # # # # ANIMATION # # # # # # #  */

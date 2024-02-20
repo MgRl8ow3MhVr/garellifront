@@ -5,19 +5,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Button from "../../components/Button/Button";
 import { appStore } from "../../store/store";
-import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import AnswerBubbles from "../../components/AnswerBubbles/AnswerBubbles";
 
 const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
-  const apiAnswer = appStore((state) => state.apiAnswer);
-  const [loading, setLoading] = useState(null);
-
   if (!criterion) {
     return null;
   }
 
-  const answerIndex =
-    criterion?.answer === "na" ? 0 : Number(criterion?.answer) + 1 || null;
   return (
     <CSSTransition
       nodeRef={node}
@@ -29,7 +24,7 @@ const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
       <div className="CriterionBox" ref={node}>
         <div
           className="CriterionText"
-          data-aos="fade-up"
+          data-aos={`fade-${moveDir}`}
           data-aos-duration="800"
           data-aos-delay={0}
         >
@@ -38,62 +33,30 @@ const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
         </div>
         <div
           className="answers"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay={0}
+          data-aos={`fade-${moveDir}`}
+          data-aos-duration="600"
+          data-aos-delay={100}
         >
-          {Array(criterion.scale + 1)
-            .fill("")
-            .map((e, i) => {
-              return (
-                <div key={i}>
-                  <div
-                    className="answerBubble"
-                    onClick={async () => {
-                      if (answerIndex !== i) {
-                        setLoading(i);
-                        const resp = await apiAnswer(i === 0 ? "na" : i - 1);
-                        setLoading(null);
-                        setTimeout(() => {
-                          changeCrit(1);
-                        }, 400);
-                      }
-                    }}
-                  >
-                    {i === 0 && answerIndex !== 0 && "NE"}
-                    {i === answerIndex && (
-                      <div className="answered appearAnim">
-                        {answerIndex === 0 && "NE"}
-                      </div>
-                    )}
-                    {i === loading && <LoadingWheel />}
-                  </div>
-                  {i !== criterion.scale && (
-                    <div className="answerSeparator"></div>
-                  )}
-                </div>
-              );
-            })}
+          <AnswerBubbles criterion={criterion} changeCrit={changeCrit} />
         </div>
       </div>
     </CSSTransition>
   );
 };
 
-function Criteria({ criteria }) {
+function Criteria({ criteria, changeCat }) {
   const [transit, setTransit] = useState(true);
   const [moveDir, setMoveDir] = useState("right");
-  const { critIndex, critPrev } = appStore((state) => state.currentIndexes);
+  const { critIndex, critPrev, catIndex } = appStore(
+    (state) => state.currentIndexes
+  );
+  const { lastCat } = appStore((state) => state.currentEval);
   const changeCritIndex = appStore((state) => state.changeCritIndex);
 
   const nodeRef = useRef(null);
   const nodeRef2 = useRef(null);
 
-  console.log("criteria", criteria);
-
   useEffect(() => {
-    AOS.init();
-    AOS.refresh();
     // looking for the last answered and go there
     let latestAnswerPos = 0;
     criteria.forEach((c, i) => {
@@ -117,6 +80,7 @@ function Criteria({ criteria }) {
   }
   const index1 = transit ? critIndex : critPrev;
   const index2 = !transit ? critIndex : critPrev;
+  const lastCriteria = critIndex === criteria.length - 1;
 
   return (
     <div className="CriteriaContainer">
@@ -144,11 +108,15 @@ function Criteria({ criteria }) {
         />
         <ProgressBar />
         <Button
-          text="Passer >"
+          text={!lastCriteria ? "Passer >" : "Cat. Suiv."}
           action={() => {
-            changeCrit(+1);
+            if (!lastCriteria) {
+              changeCrit(+1);
+            } else {
+              changeCat(catIndex + 1);
+            }
           }}
-          disabled={critIndex === criteria.length - 1}
+          disabled={lastCriteria && catIndex === lastCat}
         />
       </div>
     </div>
