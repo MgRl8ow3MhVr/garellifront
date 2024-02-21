@@ -1,5 +1,5 @@
 import "./TeenProfile.css";
-import ThumbUp from "../../assets/icons/ThumbUp.png";
+import ThumbUp from "../../assets/icons/thumbUp.svg";
 import Power from "../../assets/icons/power.svg";
 
 import { appStore } from "../../store/store";

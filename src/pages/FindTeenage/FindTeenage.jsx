@@ -1,6 +1,6 @@
 import "./FindTeenage.css";
-import SearchIcon from "../../assets/icons/search_LightGray.png";
-import User from "../../assets/icons/User.png";
+import SearchIcon from "../../assets/icons/research.svg";
+import User from "../../assets/icons/user.svg";
 import { useState, useEffect } from "react";
 import Suggestion from "./Suggestion";
 import { appStore } from "../../store/store";

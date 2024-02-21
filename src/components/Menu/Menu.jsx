@@ -3,7 +3,7 @@ import { useState } from "react";
 import { appStore } from "../../store/store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { colors } from "../../config";
-import LogOut from "../../assets/icons/LogOut.png";
+import LogOut from "../../assets/icons/logout.svg";
 
 const MenuPopUp = () => {
   const [open, setOpen] = useState(false);

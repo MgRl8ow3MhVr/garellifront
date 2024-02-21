@@ -3,7 +3,7 @@ import { appStore } from "../../store/store";
 
 const CatSelector = ({ changeCat, catIndex }) => {
   const categories = appStore((state) => state.currentEval.categories);
-
+  console.log(categories);
   return (
     <div className="selectorContainer">
       {categories &&
@@ -15,7 +15,7 @@ const CatSelector = ({ changeCat, catIndex }) => {
               changeCat(i);
             }}
           >
-            <img src={c.url} />
+            <img src={c.url2} />
           </div>
         ))}
     </div>
