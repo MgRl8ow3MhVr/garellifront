@@ -87,6 +87,7 @@ const TeenProfile = () => {
         <div className="evalsBlock">
           {teen.evaluations &&
             teen.evaluations.map((ev, i) => {
+              console.log("EVTEEN", ev);
               return (
                 <div className="teenEvalsContainer" key={i}>
                   <div className="teenEvalsTime" key={i}>
