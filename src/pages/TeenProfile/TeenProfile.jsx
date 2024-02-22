@@ -1,5 +1,6 @@
 import "./TeenProfile.css";
-import ThumbUp from "../../assets/icons/thumbUp.svg";
+import ThumbUp from "../../assets/icons/thumbup.svg";
+import ThumbUpTodo from "../../assets/icons/thumbuptodo.svg";
 import Power from "../../assets/icons/power.svg";
 
 import { appStore } from "../../store/store";
@@ -11,6 +12,7 @@ const TeenProfile = () => {
   const apiFetchOneTeen = appStore((state) => state.apiFetchOneTeen);
   const apiFetchTimes = appStore((state) => state.apiFetchTimes);
   const apiCreateEval = appStore((state) => state.apiCreateEval);
+  const apiProduceResults = appStore((state) => state.apiProduceResults);
   // const apiFetchEval = appStore((state) => state.apiFetchEval);
   const teenId = useLocation()?.state?.teenId;
   const teen = appStore((state) => state.teen);
@@ -69,16 +71,13 @@ const TeenProfile = () => {
             Prénom : <span>{teen.first_name}</span>
           </p>
           <p>
-            Date de naissance : <span>{teen.birth_date}</span>
+            Date d'admission : <span>{teen.entry_date}</span>
           </p>
           <p>
-            Date d'admission : <span>{teen.birth_date}</span>
+            Date de sortie : <span>{teen.exit_date}</span>
           </p>
           <p>
             Educateur référent : <span>{user.username}</span>
-          </p>
-          <p>
-            Date de sortie : <span>{teen.last_name}</span>
           </p>
         </div>
       </div>
@@ -87,12 +86,13 @@ const TeenProfile = () => {
         <div className="evalsBlock">
           {teen.evaluations &&
             teen.evaluations.map((ev, i) => {
-              console.log("EVTEEN", ev);
+              console.log("ev", ev);
+              const finished = ev.attributes.status === "finished";
               return (
                 <div className="teenEvalsContainer" key={i}>
                   <div className="teenEvalsTime" key={i}>
                     <div
-                      className="hoveryellow"
+                      className="hoverright"
                       onClick={() => {
                         setOpenDrawer(openDrawer !== i ? i : null);
                       }}
@@ -100,12 +100,14 @@ const TeenProfile = () => {
                       {ev.attributes?.evaluation_time.data?.attributes.name}
                     </div>
                     <div
-                      className="teenEvalsAction hoverbig"
+                      className={`teenEvalsAction ${!finished && "hoverbig"}`}
                       onClick={() => {
-                        console.log("clic");
+                        if (!finished) {
+                          apiProduceResults(ev.id);
+                        }
                       }}
                     >
-                      <img src={ThumbUp} />
+                      <img src={!finished ? ThumbUp : ThumbUpTodo} />
                     </div>
                   </div>
                   <EvalsDrawer

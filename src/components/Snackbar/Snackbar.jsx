@@ -1,12 +1,12 @@
 import "./Snackbar.css";
 import { CSSTransition } from "react-transition-group";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { appStore } from "../../store/store";
-import { snackbartime } from "../../config";
+import { colors, snackbartime } from "../../config";
 
 const Snackbar = () => {
   const nodeRef = useRef(null);
-  const { on, text } = appStore((state) => state.snackbar);
+  const { on, text, error } = appStore((state) => state.snackbar);
   const resetSnackbar = appStore((state) => state.resetSnackbar);
 
   useEffect(() => {
@@ -25,7 +25,13 @@ const Snackbar = () => {
       classNames="snack"
       unmountOnExit
     >
-      <div ref={nodeRef} className="snackbar">
+      <div
+        ref={nodeRef}
+        className="snackbar"
+        style={{
+          backgroundColor: !error ? colors.snackBarOk : colors.snackBarKo,
+        }}
+      >
         {text}
       </div>
     </CSSTransition>

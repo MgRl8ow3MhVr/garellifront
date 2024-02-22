@@ -267,4 +267,46 @@ export const appStore = create((set, get) => ({
 
     return !!response;
   },
+  apiProduceResults: async (evalId) => {
+    const response = await get().fetchApi(
+      `/results/produceresults/${evalId}`,
+      {},
+      "POST",
+      () => {
+        get().apiUpdateEvaluation(evalId);
+      },
+      ({ data }) => {
+        get().showSnackbar(
+          "Il y a eu un problème avec l'envoi de l'évaluation",
+          true
+        );
+        throw new TypeError("error");
+      }
+    );
+    return !!response;
+  },
+  apiUpdateEvaluation: async (evalId) => {
+    const now = new Date();
+    const response = await get().fetchApi(
+      `/evaluations/${evalId}`,
+      {
+        data: {
+          status: "finished",
+          submission_date: now.toISOString().split("T")[0],
+        },
+      },
+      "PUT",
+      async ({ data }) => {
+        await get().apiFetchOneTeen(get().teen.id);
+        get().showSnackbar("L'évaluation a bien été envoyée, merci !");
+      },
+      ({ data }) => {
+        get().showSnackbar(
+          "Il y a eu un problème avec la mise à jour du statut de l'évaluation",
+          true
+        );
+      }
+    );
+    return !!response;
+  },
 }));

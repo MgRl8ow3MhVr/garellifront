@@ -78,6 +78,15 @@ a {
   transform: scale(1.1);
 }
 
+.hoverright {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.hoverright:hover {
+  transform: translateX(0.25rem);
+}
+
 .hoveryellow {
   transition: all 0.2s ease;
   cursor: pointer;

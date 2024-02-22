@@ -11,4 +11,6 @@ export const colors = {
   grey3: "#d5d9dd",
   inprogress: "#ffcb96",
   done: "#fa8743",
+  snackBarOk: "#278410",
+  snackBarKo: "#c10612",
 };

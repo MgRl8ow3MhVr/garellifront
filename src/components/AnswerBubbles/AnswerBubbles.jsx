@@ -11,7 +11,7 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
     criterion?.answer === "na" ? 0 : Number(criterion?.answer) + 1 || null;
   return (
     <>
-      {Array(criterion.scale + 1)
+      {Array(criterion.scale + 2)
         .fill("")
         .map((e, i) => {
           return (
@@ -29,7 +29,7 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
                   }
                 }}
               >
-                {i === 0 && answerIndex !== 0 && "NE"}
+                {i === 0 && answerIndex !== 0 && loading !== 0 && "NE"}
                 {i === answerIndex && (
                   <div className="answered appearAnim">
                     {answerIndex === 0 && "NE"}
@@ -37,7 +37,9 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
                 )}
                 {i === loading && <LoadingWheel />}
               </div>
-              {i !== criterion.scale && <div className="answerSeparator"></div>}
+              {i !== criterion.scale + 1 && (
+                <div className="answerSeparator"></div>
+              )}
             </div>
           );
         })}
