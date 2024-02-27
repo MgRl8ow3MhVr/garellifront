@@ -7,6 +7,7 @@ import { appStore } from "../../store/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EvalsDrawer from "./EvalsDrawer";
+import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 const TeenProfile = () => {
   const apiFetchOneTeen = appStore((state) => state.apiFetchOneTeen);
@@ -54,7 +55,7 @@ const TeenProfile = () => {
           .includes(ev.id)
     );
   }
-  if (!teen) return null;
+  if (!teen) return <LoadingWheel />;
   return (
     <div className="teenContainer">
       <div className="teenBlockTeen">

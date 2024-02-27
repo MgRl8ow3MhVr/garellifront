@@ -1,5 +1,12 @@
 import "./LoadingWheel.css";
-const LoadingWheel = () => {
-  return <span className="loader appearAnim"></span>;
+import { colors } from "../../config";
+
+const LoadingWheel = ({ color = colors.button }) => {
+  return (
+    <span
+      className="loader appearAnim"
+      style={{ border: `5px solid ${color}`, borderBottomColor: "transparent" }}
+    ></span>
+  );
 };
 export default LoadingWheel;

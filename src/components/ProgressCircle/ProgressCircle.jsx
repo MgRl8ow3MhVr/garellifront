@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { colors } from "../../config";
 import "./ProgressCircle.css";
+import LoadingWheel from "../LoadingWheel/LoadingWheel";
 
 const cleanPercentage = (percentage) => {
   const tooLow = !Number.isFinite(+percentage) || percentage < 0;
@@ -53,6 +54,7 @@ const ProgressCircle = ({
   action,
 }) => {
   const [pctState, setPctState] = useState(percentage ? 1 : 0);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setPctState(cleanPercentage(percentage));
@@ -63,7 +65,10 @@ const ProgressCircle = ({
     <div
       className="svgProgressBar hoverbig"
       style={{ width: 2 * size, height: 2 * size }}
-      onClick={action}
+      onClick={() => {
+        action();
+        setLoading(true);
+      }}
     >
       <svg width={2 * size} height={2 * size}>
         <g transform={`rotate(-90 ${size} ${size})`}>
@@ -77,13 +82,17 @@ const ProgressCircle = ({
         </g>
         {/* <Text percentage={pct} /> */}
       </svg>
-      <img
-        src={imgUrl}
-        style={{
-          width: 2 * imgSize * size,
-          height: 2 * imgSize * size,
-        }}
-      />
+      {loading ? (
+        <LoadingWheel color={colors.background1} />
+      ) : (
+        <img
+          src={imgUrl}
+          style={{
+            width: 2 * imgSize * size,
+            height: 2 * imgSize * size,
+          }}
+        />
+      )}
     </div>
   );
 };
