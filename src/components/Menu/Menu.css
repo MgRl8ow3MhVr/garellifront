@@ -1,40 +1,41 @@
 .menuContainer {
-  background-color: rgb(0, 0, 0, 0.8);
   position: absolute;
   z-index: 100;
   top: 2rem;
-  left: 7rem;
-  /* width: 200px; */
-  /* height: 200px; */
+  left: 2rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 2rem;
-  flex-direction: column;
-  color: var(--background1);
+}
+
+.menuContainer > div {
+  width: 5rem;
 }
 
 .menuIcon {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  z-index: 101;
   cursor: pointer;
   transition: all 0.2s;
-}
-.menuIcon > img {
-  height: 100%;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .menuIcon:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
-.menuOption {
-  cursor: pointer;
+.menu-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.menu-enter-active {
+  transform: translateY(0%);
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
 }
 
-.menuIcon {
-  width: 3rem;
+.menu-exit {
+  opacity: 1;
+}
+.menu-exit-active {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
 }

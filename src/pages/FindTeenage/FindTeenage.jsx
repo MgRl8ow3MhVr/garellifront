@@ -1,6 +1,6 @@
 import "./FindTeenage.css";
-import SearchIcon from "../../assets/icons/research.svg";
-import User from "../../assets/icons/user.svg";
+import ResearchIcon from "../../assets/icons/ResearchIcon";
+import UserIcon from "../../assets/icons/UserIcon";
 import { useState, useEffect } from "react";
 import Suggestion from "./Suggestion";
 import { appStore } from "../../store/store";
@@ -38,7 +38,7 @@ const FindTeenage = () => {
   return (
     <div className="findTeenContainer">
       <div className="findTeenUser">
-        <img src={User} />
+        <UserIcon />
         {userName}
       </div>
       <div className="findTeenTitle">BIENVENUE {userName}</div>
@@ -51,7 +51,8 @@ const FindTeenage = () => {
           }}
           placeholder="rechercher un jeune"
         />
-        <img src={SearchIcon} />
+        <ResearchIcon />
+        {/* <img src={SearchIcon} /> */}
         <div className="findTeenListContainer">
           {suggestionList.map((s, i) => (
             <Suggestion key={`${s.first_name}`} s={s} i={i} exit={exitAll} />
