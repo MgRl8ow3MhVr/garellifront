@@ -71,7 +71,7 @@ a {
 }
 
 .hoverbig {
-  transition: all 0.2s ease;
+  transition: all 0.05s ease;
   cursor: pointer;
 }
 

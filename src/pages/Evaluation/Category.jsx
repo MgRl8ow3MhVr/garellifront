@@ -2,7 +2,6 @@ import { CSSTransition } from "react-transition-group";
 import { useState, useRef, useEffect } from "react";
 import "./Category.css";
 import Criteria from "./Criteria";
-import AOS from "aos";
 import "aos/dist/aos.css";
 import CatSelector from "../../components/CatSelector/CatSelector";
 import { appStore } from "../../store/store";
@@ -46,8 +45,6 @@ const Category = () => {
   const changeCatIndex = appStore((state) => state.changeCatIndex);
 
   useEffect(() => {
-    AOS.init();
-    AOS.refresh();
     // in case we reload browser
     if (!answers) {
       navigate("/");

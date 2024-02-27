@@ -6,6 +6,7 @@ const MenuIcon = ({ size = 24, color = "#FFFFFF" }) => (
     height={size}
     viewBox="0 0 120.34 97.56"
     fill={color}
+    style={{ transition: "all 0.1s ease" }}
   >
     <path
       id="Menu"

@@ -1,7 +1,6 @@
 import { CSSTransition } from "react-transition-group";
 import { useState, useRef, useEffect } from "react";
 import "./Criteria.css";
-import AOS from "aos";
 import "aos/dist/aos.css";
 import Button from "../../components/Button/Button";
 import { appStore } from "../../store/store";

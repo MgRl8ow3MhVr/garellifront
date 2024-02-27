@@ -86,7 +86,6 @@ const TeenProfile = () => {
         <div className="evalsBlock">
           {teen.evaluations &&
             teen.evaluations.map((ev, i) => {
-              console.log("ev", ev);
               const finished = ev.attributes.status === "finished";
               return (
                 <div className="teenEvalsContainer" key={i}>

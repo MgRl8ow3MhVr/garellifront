@@ -129,6 +129,7 @@ export const appStore = create((set, get) => ({
     const query = queryMaker({
       fields: ["first_name", "last_name", "birth_date"],
       filters: [`[educator][id][$eq]=${get().user.id}`],
+      populate: ["[photo][fields][0]=url"],
     });
     const response = await get().fetchApi(
       `/teenagers?${query}`,
@@ -136,7 +137,7 @@ export const appStore = create((set, get) => ({
       "GET",
       // on success
       () => {
-        get().showSnackbar(`Bienvenue ${get().user.username}`);
+        // get().showSnackbar(`Bienvenue ${get().user.username}`);
       },
       // on fail - especially if token not available anymore
       () => {
@@ -145,7 +146,11 @@ export const appStore = create((set, get) => ({
       }
     );
     return response.data.map((t) => {
-      return { ...t.attributes, id: t.id };
+      return {
+        ...t.attributes,
+        id: t.id,
+        photo: t.attributes?.photo?.data?.attributes?.url,
+      };
     });
   },
 

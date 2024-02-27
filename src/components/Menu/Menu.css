@@ -7,14 +7,20 @@
   font-size: 2rem;
 }
 
-.menuContainer > div {
-  width: 5rem;
+.burgerContainer {
+  margin-right: 3rem;
+  /* border: 1px solid blue; */
+}
+
+.optionsContainer {
+  display: flex;
+  gap: 0.8rem;
 }
 
 .menuIcon {
+  /* border: 1px solid orange; */
   cursor: pointer;
   transition: all 0.2s;
-  /* width: 100%; */
 }
 
 .menuIcon:hover {
@@ -23,10 +29,10 @@
 
 .menu-enter {
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 .menu-enter-active {
-  transform: translateY(0%);
+  transform: translateX(0%);
   opacity: 1;
   transition: all 0.2s ease-in-out;
 }
@@ -35,7 +41,7 @@
   opacity: 1;
 }
 .menu-exit-active {
-  transform: translateY(-100%);
+  transform: translateX(-100%);
   opacity: 0;
   transition: all 0.2s ease-in-out;
 }

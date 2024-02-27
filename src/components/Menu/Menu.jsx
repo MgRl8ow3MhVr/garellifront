@@ -1,5 +1,5 @@
 import "./Menu.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { appStore } from "../../store/store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { colors } from "../../config";
@@ -21,17 +21,22 @@ const MenuPopUp = () => {
   const nodeRef = useRef(null);
   const colorFill = loc === "/profil" ? colors.background1 : colors.typo;
 
+  useEffect(() => {
+    console.log("cool");
+    setOpen(false);
+  }, [loc]);
+
   return (
     <>
       <div className="menuContainer">
-        <div>
+        <div className="burgerContainer">
           <div
             onClick={() => {
               setOpen(!open);
             }}
             className="menuIcon"
           >
-            <MenuIcon color={colorFill} size="3rem" />
+            <MenuIcon color={colorFill} size={!open ? "3rem" : "2.5rem"} />
           </div>
         </div>
         <CSSTransition
@@ -41,7 +46,7 @@ const MenuPopUp = () => {
           classNames="menu"
           unmountOnExit
         >
-          <div ref={nodeRef}>
+          <div className="optionsContainer" ref={nodeRef}>
             {/* {open && ( */}
             <div className="menuIcon" onClick={disconnect}>
               <LogoutIcon color={colorFill} size="3rem" />

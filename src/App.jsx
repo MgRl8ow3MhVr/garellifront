@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 
 // PAGES
 import LoginPage from "./pages/Login/Login";
@@ -13,9 +14,15 @@ import Snackbar from "./components/Snackbar/Snackbar";
 // OTHERS
 import { appStore } from "./store/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AOS from "aos";
 
 function App() {
   const user = appStore((state) => state.user);
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   return (
     <div className="appContainer">

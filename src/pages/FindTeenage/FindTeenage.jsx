@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import Suggestion from "./Suggestion";
 import { appStore } from "../../store/store";
 import { colors } from "../../config";
+import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 const FindTeenage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [exitAll, setExitAll] = useState(false);
-  const [allTeenages, setAllTeenages] = useState(false);
+  const [allTeenages, setAllTeenages] = useState([]);
   const [suggestionList, setSuggestionList] = useState([]);
 
   const apiFetchTeenages = appStore((state) => state.apiFetchTeenages);
@@ -25,16 +25,12 @@ const FindTeenage = () => {
   }, []);
 
   useEffect(() => {
-    if (searchTerm) {
-      setExitAll(true);
-      setTimeout(() => {
-        setSuggestionList(
-          allTeenages.filter((t) => t.first_name.includes(searchTerm))
-        );
-        setExitAll(false);
-      }, 250);
-    }
+    setSuggestionList(
+      allTeenages.filter((t) => t.first_name.includes(searchTerm))
+    );
   }, [searchTerm]);
+
+  if (!allTeenages.length) return <LoadingWheel />;
 
   return (
     <div className="findTeenContainer">
@@ -42,7 +38,6 @@ const FindTeenage = () => {
         <UserIcon color={colors.typo} size="2rem" />
         {userName}
       </div>
-      <div className="findTeenTitle">BIENVENUE {userName}</div>
       <div className="findTeenInput">
         <input
           type="text"
@@ -55,11 +50,11 @@ const FindTeenage = () => {
         <div className="findTeenSearchIcon">
           <ResearchIcon color={colors.grey2} size="1.5rem" />
         </div>
-        <div className="findTeenListContainer">
-          {suggestionList.map((s, i) => (
-            <Suggestion key={`${s.first_name}`} s={s} i={i} exit={exitAll} />
-          ))}
-        </div>
+      </div>
+      <div className="findTeenListContainer">
+        {suggestionList.map((s, i) => (
+          <Suggestion key={`${s.first_name}`} s={s} i={i} />
+        ))}
       </div>
     </div>
   );
