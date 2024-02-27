@@ -18,13 +18,12 @@
 }
 
 .menuIcon {
-  /* border: 1px solid orange; */
+  height: 2.5rem;
   cursor: pointer;
   transition: all 0.2s;
-}
-
-.menuIcon:hover {
-  transform: scale(1.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-enter {

@@ -36,7 +36,7 @@ const MenuPopUp = () => {
             }}
             className="menuIcon"
           >
-            <MenuIcon color={colorFill} size={!open ? "3rem" : "2.5rem"} />
+            <MenuIcon color={colorFill} size={open ? "90%" : "100%"} />
           </div>
         </div>
         <CSSTransition
@@ -49,7 +49,7 @@ const MenuPopUp = () => {
           <div className="optionsContainer" ref={nodeRef}>
             {/* {open && ( */}
             <div className="menuIcon" onClick={disconnect}>
-              <LogoutIcon color={colorFill} size="3rem" />
+              <LogoutIcon color={colorFill} size="100%" />
             </div>
             {/* )} */}
             {loc !== "/" && (
@@ -62,7 +62,7 @@ const MenuPopUp = () => {
                   setOpen(false);
                 }}
               >
-                <ResearchIcon color={colorFill} size="3rem" />
+                <ResearchIcon color={colorFill} size="100%" />
               </div>
             )}
             {loc === "/evaluation" && (
@@ -74,7 +74,7 @@ const MenuPopUp = () => {
                   setOpen(false);
                 }}
               >
-                <UserIcon color={colorFill} size="3rem" />
+                <UserIcon color={colorFill} size="100%" />
               </div>
             )}
           </div>

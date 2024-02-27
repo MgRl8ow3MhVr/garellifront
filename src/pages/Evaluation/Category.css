@@ -21,18 +21,19 @@
 }
 
 .CategoryTitle {
-  /* border: 1px blue solid; */
-  padding-top: 3rem;
+  /* border: 1px green solid; */
+  padding-top: 2rem;
   color: var(--typo);
   font-size: 3rem;
   font-weight: 700;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
   text-transform: uppercase;
 }
 .CategoryTitle > img {
-  height: 2.5rem;
+  height: 3rem;
 }
 
 /* @media only screen and (orientation: landscape) { */

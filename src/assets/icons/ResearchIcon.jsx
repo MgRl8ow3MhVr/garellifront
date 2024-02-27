@@ -3,7 +3,7 @@ const ResearchIcon = ({ size = 24, color = "#FFFFFF" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 219.12 222.2"
-    width={size}
+    // width={size}
     height={size}
     fill={color}
   >
