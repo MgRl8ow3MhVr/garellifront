@@ -35,11 +35,18 @@
 
 html {
   scroll-behavior: smooth;
-  /* font-size: 16px; */
+  /* font-size: 10px; */
+}
+
+@media only screen and (max-width: 750px) {
+  html {
+    font-size: 10px;
+  }
 }
 
 body {
   margin: 0;
+  min-width: none;
   -webkit-tap-highlight-color: transparent;
 }
 
