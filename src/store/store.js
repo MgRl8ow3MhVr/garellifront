@@ -101,7 +101,7 @@ export const appStore = create((set, get) => ({
       params,
       "POST",
       (data) => {
-        get().showSnackbar("bienvenue bogoss");
+        get().showSnackbar("bienvenue " + data.user?.username);
         set({
           user: {
             jwt: data.jwt,
