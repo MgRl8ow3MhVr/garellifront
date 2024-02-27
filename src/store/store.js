@@ -219,7 +219,7 @@ export const appStore = create((set, get) => ({
             lastCat: data.attributes?.progression?.length - 1,
           },
         }));
-        get().showSnackbar("Démarrez l'évaluation");
+        get().showSnackbar("Evaluation démarrée");
       }
     );
     return !!response;
