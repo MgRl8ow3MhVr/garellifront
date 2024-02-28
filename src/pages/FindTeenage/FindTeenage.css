@@ -42,14 +42,14 @@
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
+  justify-content: center;
   gap: 1.5rem;
 }
 
 .findTeenSuggestion {
-  flex: 1 0 45%;
-  /* width: 20rem; */
-  /* max-width: 45%; */
+  flex: 1 0 40%;
+  max-width: 40%;
+  min-width: 25rem;
   height: fit-content;
   background-color: var(--typo);
   color: var(--background1);
