@@ -26,7 +26,11 @@ const FindTeenage = () => {
 
   useEffect(() => {
     setSuggestionList(
-      allTeenages.filter((t) => t.first_name.includes(searchTerm))
+      allTeenages.filter((t) =>
+        (t.first_name + t.last_name)
+          .toUpperCase()
+          .includes(searchTerm.toUpperCase())
+      )
     );
   }, [searchTerm]);
 

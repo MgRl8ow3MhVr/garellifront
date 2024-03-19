@@ -127,8 +127,11 @@ export const appStore = create((set, get) => ({
     // This is this the first call after automatic login.
     // So jwt and user infos might be expired -- see fail action
     const query = queryMaker({
-      fields: ["first_name", "last_name", "birth_date"],
-      filters: [`[educator][id][$eq]=${get().user.id}`],
+      fields: ["first_name", "last_name", "birth_date", "exit_date"],
+      filters: [
+        `[educator][id][$eq]=${get().user.id}`,
+        `[exit_date][$null]=true`,
+      ],
       populate: ["[photo][fields][0]=url"],
     });
     const response = await get().fetchApi(
