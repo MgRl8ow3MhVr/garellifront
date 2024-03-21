@@ -22,7 +22,6 @@ const MenuPopUp = () => {
   const colorFill = loc === "/profil" ? colors.background1 : colors.typo;
 
   useEffect(() => {
-    console.log("cool");
     setOpen(false);
   }, [loc]);
 

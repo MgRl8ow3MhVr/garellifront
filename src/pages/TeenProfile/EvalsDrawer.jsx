@@ -3,11 +3,8 @@ import { CSSTransition } from "react-transition-group";
 import { appStore } from "../../store/store";
 
 const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
-  if (progression.length < 7) {
-    return null;
-  }
-  const line1Cats = progression.slice(0, 3);
-  const line2Cats = progression.slice(3, 7);
+  const line1Cats = progression.slice(0, 4);
+  const line2Cats = progression.slice(4, 8);
 
   const apiFetchEval = appStore((state) => state.apiFetchEval);
 

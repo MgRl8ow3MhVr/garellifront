@@ -1,7 +1,7 @@
 import "./TeenProfile.css";
-import ThumbUp from "../../assets/icons/thumbup.svg";
-import ThumbUpTodo from "../../assets/icons/thumbuptodo.svg";
-import Power from "../../assets/icons/power.svg";
+import ThumbupGrey from "../../assets/icons/thumbupGrey.svg";
+import ThumbupWhite from "../../assets/icons/thumbupWhite.svg";
+import ThumbupYellow from "../../assets/icons/thumbupYellow.svg";
 
 import { appStore } from "../../store/store";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,10 +11,8 @@ import LoadingWheel from "../../components/LoadingWheel/LoadingWheel";
 
 const TeenProfile = () => {
   const apiFetchOneTeen = appStore((state) => state.apiFetchOneTeen);
-  const apiFetchTimes = appStore((state) => state.apiFetchTimes);
   const apiCreateEval = appStore((state) => state.apiCreateEval);
   const apiProduceResults = appStore((state) => state.apiProduceResults);
-  // const apiFetchEval = appStore((state) => state.apiFetchEval);
   const teenId = useLocation()?.state?.teenId;
   const teen = appStore((state) => state.teen);
   const currentEval = appStore((state) => state.currentEval);
@@ -27,18 +25,12 @@ const TeenProfile = () => {
     const fetchOneTeen = async () => {
       await apiFetchOneTeen(teenId);
     };
-    const fetchTimes = async () => {
-      await apiFetchTimes();
-    };
     if (teenId) {
       fetchOneTeen();
     }
-    if (!evalTimes) {
-      fetchTimes();
-    }
   }, []);
 
-  // This will handle the navigation to evaluation page in two cases : eval creation, or eval selection
+  // This will handle the navigation to evaluation page in case of eval selection
   useEffect(() => {
     if (currentEval.answers) {
       navigate("/evaluation");
@@ -46,7 +38,9 @@ const TeenProfile = () => {
   }, [currentEval]);
 
   // check the eval_times not yet started :
+  // And exclude the "Exit" one
   let evalsNotStarted = [];
+
   if (evalTimes && teen && teen.evaluations) {
     evalsNotStarted = evalTimes.filter(
       (ev) =>
@@ -55,7 +49,23 @@ const TeenProfile = () => {
           .includes(ev.id)
     );
   }
-  if (!teen) return <LoadingWheel />;
+
+  // teen must have at least two evals created : first and last
+  if (!teen || teen.evaluations.length < 2) return <LoadingWheel />;
+  // now isolate exit one to put it in the end
+
+  const activeEvals = JSON.parse(JSON.stringify(teen.evaluations));
+  // sort by months
+  activeEvals.sort(
+    (a, b) =>
+      a.attributes.evaluation_time.data.attributes.months -
+      b.attributes.evaluation_time.data.attributes.months
+  );
+  const lastEval = activeEvals.pop();
+  const allEvals = activeEvals.concat(evalsNotStarted);
+  allEvals.push(lastEval);
+  console.log("openDrawer", openDrawer);
+
   return (
     <div className="teenContainer">
       <div className="teenBlockTeen">
@@ -85,30 +95,67 @@ const TeenProfile = () => {
       <div className="teenBlockEvals">
         <div className="teenEvalsTitle">grille d'observation</div>
         <div className="evalsBlock">
-          {teen.evaluations &&
-            teen.evaluations.map((ev, i) => {
-              const finished = ev.attributes.status === "finished";
+          {allEvals &&
+            allEvals.map((ev, i) => {
+              // # # # # # # # # # # EVAL NOT STARTED # # # # # # #
+              if (!ev.attributes) {
+                return (
+                  <div className="teenEvalsContainer" key={i}>
+                    <div className="teenEvalsTime notselected">
+                      <div> {ev.name}</div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // # # # # # # # # # # EVAL STARTED # # # # # # #
+
+              const started = ev.attributes.status === "started";
+              // complete means not yet validated but all answered 100%
+              const complete = ev.attributes.progression.reduce(
+                (acc, p) => acc === true && p.percent === 100,
+                true
+              );
               return (
                 <div className="teenEvalsContainer" key={i}>
-                  <div className="teenEvalsTime" key={i}>
+                  <div className="teenEvalsTime">
                     <div
                       className="hoverright"
                       onClick={() => {
+                        console.log("CLIC !", i);
                         setOpenDrawer(openDrawer !== i ? i : null);
                       }}
                     >
                       {ev.attributes?.evaluation_time.data?.attributes.name}
                     </div>
-                    <div
-                      className={`teenEvalsAction ${!finished && "hoverbig"}`}
-                      onClick={() => {
-                        if (!finished) {
-                          apiProduceResults(ev.id);
-                        }
-                      }}
-                    >
-                      <img src={!finished ? ThumbUp : ThumbUpTodo} />
-                    </div>
+                    {/* STARTED AND COMPLETED */}
+                    {started && complete && (
+                      <div
+                        className="teenEvalsAction hoverbig"
+                        onClick={async () => {
+                          await apiProduceResults(ev.id);
+                          // unlock next eval
+                          const idToStart = evalsNotStarted.length
+                            ? evalsNotStarted[0]
+                            : null;
+                          idToStart && (await apiCreateEval(idToStart));
+                        }}
+                      >
+                        <img src={ThumbupYellow} />
+                      </div>
+                    )}
+                    {/* NOT COMPLETE YET*/}
+                    {started && !complete && (
+                      <div className="teenEvalsAction">
+                        <img src={ThumbupGrey} />
+                      </div>
+                    )}
+                    {/* FINISHED*/}
+                    {!started && (
+                      <div className="teenEvalsAction">
+                        <img src={ThumbupWhite} />
+                      </div>
+                    )}
                   </div>
                   <EvalsDrawer
                     progression={ev.attributes?.progression}
@@ -118,23 +165,6 @@ const TeenProfile = () => {
                 </div>
               );
             })}
-          {evalsNotStarted.map((ev, i) => {
-            return (
-              <div className="teenEvalsContainer" key={i}>
-                <div className="teenEvalsTime notselected" key={i}>
-                  <div> {ev.name}</div>
-                  <div
-                    className="teenEvalsAction hoverbig"
-                    onClick={() => {
-                      apiCreateEval(ev.id);
-                    }}
-                  >
-                    <img src={Power} />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

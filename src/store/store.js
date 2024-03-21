@@ -174,15 +174,40 @@ export const appStore = create((set, get) => ({
       `/teenagers/${teenId}?${query}`,
       null,
       "GET",
-      ({ data }) => {
-        set(() => ({
-          teen: {
-            id: data.id,
-            ...data?.attributes,
-            evaluations: data.attributes?.evaluations?.data,
-            photo: data.attributes?.photo?.data?.attributes?.url,
-          },
-        }));
+      async ({ data }) => {
+        // first let's get evalTime if they haven't been fetched yet
+        if (!get().evalTimes) {
+          await get().apiFetchTimes();
+        }
+        const evalTimes = get().evalTimes;
+        // if no eval available at all : initiate the first and last eval
+        if (data.attributes?.evaluations?.data.length === 0) {
+          console.log("create first and last");
+          // create first
+          await get().apiCreateEval(evalTimes[0].id, data.id);
+          // create last
+          await get().apiCreateEval(
+            evalTimes[evalTimes.length - 1].id,
+            data.id
+          );
+          // then REFECTH TEEN because those 2 evals have just been created
+          await get().apiFetchOneTeen(teenId);
+          get().showSnackbar(
+            "Bienvenue dans ton espace d'évaluations " +
+              data.attributes.first_name
+          );
+
+          // otherwise, it's okay to set teen in the store. Then profile page will display ok
+        } else {
+          set(() => ({
+            teen: {
+              id: data.id,
+              ...data?.attributes,
+              evaluations: data.attributes?.evaluations?.data,
+              photo: data.attributes?.photo?.data?.attributes?.url,
+            },
+          }));
+        }
       },
       () => {
         get().showSnackbar("Problème réseau pour récupérer le jeune");
@@ -208,21 +233,21 @@ export const appStore = create((set, get) => ({
     // return response?.data?.attributes.?evaluations?.data;
   },
 
-  apiCreateEval: async (evaluation_time) => {
+  apiCreateEval: async (evaluation_time, teenId) => {
     const response = await get().fetchApi(
       `/evaluations`,
-      { data: { evaluation_time, teenager: get().teen.id } },
+      { data: { evaluation_time, teenager: teenId || get().teen.id } },
       "POST",
       ({ data }) => {
-        set((state) => ({
-          currentEval: {
-            answers: data.attributes.answers,
-            categories: data.attributes.progression,
-            id: data.id,
-            lastCat: data.attributes?.progression?.length - 1,
-          },
-        }));
-        get().showSnackbar("Evaluation démarrée");
+        // refetch teen to show new unlocked eval
+        const teenId = get().teen?.id;
+        teenId && get().apiFetchOneTeen(teenId);
+        // SnackBar
+        if (!teenId) {
+          get().showSnackbar(
+            "Vos résultats ont bien été envoyés. La prochaine évaluation est disponible"
+          );
+        }
       }
     );
     return !!response;

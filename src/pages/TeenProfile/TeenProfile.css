@@ -78,16 +78,15 @@
   text-align: center;
   word-spacing: 4px;
   letter-spacing: 1px;
-  /* border: solid 1px red; */
 }
 
 .evalsBlock {
-  /* margin-top: -2rem; */
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*  */
+  /* border: solid 2px red; */
+  height: fit-content;
 }
 .teenEvalsContainer {
   /* border: solid 1px green; */
@@ -100,7 +99,7 @@
   font-size: 1.2rem;
   padding: 0.3rem 1.5rem 0.3rem 0;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .teenEvalsTime > div:first-child {
   width: 100%;
@@ -130,6 +129,7 @@
 }
 .catLine2Container {
   width: 100%;
+  margin-left: 3rem;
   display: flex;
   justify-content: center;
 }
@@ -142,12 +142,12 @@
 }
 .drawer-enter-active {
   opacity: 1;
-  max-height: 1000px;
+  max-height: 500px;
   transition: max-height 0.6s ease-in-out;
 }
 
 .drawer-exit {
-  max-height: 1000px;
+  max-height: 500px;
 }
 .drawer-exit-active {
   overflow: hidden;
