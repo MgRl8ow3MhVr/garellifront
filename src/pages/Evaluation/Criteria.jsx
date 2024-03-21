@@ -56,13 +56,10 @@ function Criteria({ criteria, changeCat }) {
   const nodeRef2 = useRef(null);
 
   useEffect(() => {
-    // looking for the last answered and go there
-    let latestAnswerPos = 0;
-    criteria.forEach((c, i) => {
-      if (c.answer || c.answer === 0) {
-        latestAnswerPos = i;
-      }
-    });
+    // looking for the first non answered and go there
+    const latestAnswerPos = criteria.findIndex((crit) => !crit.answer);
+    console.log("latestAnswerPos", latestAnswerPos);
+
     changeCritIndex(latestAnswerPos);
   }, []);
 

@@ -64,7 +64,6 @@ const TeenProfile = () => {
   const lastEval = activeEvals.pop();
   const allEvals = activeEvals.concat(evalsNotStarted);
   allEvals.push(lastEval);
-  console.log("openDrawer", openDrawer);
 
   return (
     <div className="teenContainer">
@@ -122,7 +121,6 @@ const TeenProfile = () => {
                     <div
                       className="hoverright"
                       onClick={() => {
-                        console.log("CLIC !", i);
                         setOpenDrawer(openDrawer !== i ? i : null);
                       }}
                     >

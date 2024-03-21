@@ -42,7 +42,7 @@ const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
               size={35}
               position={j}
               action={() => {
-                apiFetchEval(evalId, j + 3);
+                apiFetchEval(evalId, j + 4);
               }}
             />
           ))}

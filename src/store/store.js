@@ -24,14 +24,15 @@ export const appStore = create((set, get) => ({
       currentEval: { answers: null, categories: null, id: null, lastCat: null },
       currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
     })),
-  changeCatIndex: (i) =>
+  changeCatIndex: (i) => {
     set((state) => ({
       currentIndexes: {
         ...state.currentIndexes,
         catIndex: i,
         catPrev: state.currentIndexes.catIndex,
       },
-    })),
+    }));
+  },
   changeCritIndex: (i) =>
     set((state) => ({
       currentIndexes: {
@@ -182,7 +183,6 @@ export const appStore = create((set, get) => ({
         const evalTimes = get().evalTimes;
         // if no eval available at all : initiate the first and last eval
         if (data.attributes?.evaluations?.data.length === 0) {
-          console.log("create first and last");
           // create first
           await get().apiCreateEval(evalTimes[0].id, data.id);
           // create last
