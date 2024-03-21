@@ -1,11 +1,11 @@
 .svgProgressBar {
-  /* background-color: orange; */
+  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   /* border: 1px solid blue; */
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 .svgProgressBar svg {

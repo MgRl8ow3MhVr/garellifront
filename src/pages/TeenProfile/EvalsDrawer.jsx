@@ -29,8 +29,11 @@ const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
               }}
             />
           ))}
+          <div className="catLineshift"></div>
         </div>
         <div className="catLine2Container">
+          <div className="catLineshift"></div>
+
           {line2Cats.map((cat, j) => (
             <ProgressCircle
               key={j}
