@@ -295,6 +295,21 @@ export const appStore = create((set, get) => ({
             answers: data.attributes.answers,
           },
         }));
+
+        if (
+          get().currentIndexes.catPos === data.attributes.progression.length
+        ) {
+          const complete = data.attributes.progression.reduce(
+            (acc, p) => acc === true && p.percent === 100,
+            true
+          );
+          if (complete) {
+            get().showSnackbar(
+              "Vous avez complété l'évaluation, vous pouvez désormais la valider"
+            );
+          }
+        }
+        console.log("prog", data.attributes.progression);
       }
     );
 

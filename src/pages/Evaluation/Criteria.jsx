@@ -58,8 +58,6 @@ function Criteria({ criteria, changeCat }) {
   useEffect(() => {
     // looking for the first non answered and go there
     const latestAnswerPos = criteria.findIndex((crit) => !crit.answer);
-    console.log("latestAnswerPos", latestAnswerPos);
-
     changeCritIndex(latestAnswerPos);
   }, []);
 

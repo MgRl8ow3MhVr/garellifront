@@ -6,12 +6,11 @@ import "./AnswerBubbles.css";
 const AnswerBubbles = ({ criterion, changeCrit }) => {
   const [loading, setLoading] = useState(null);
   const apiAnswer = appStore((state) => state.apiAnswer);
+  const answerIndex = Number(criterion?.answer);
 
-  const answerIndex =
-    criterion?.answer === "na" ? 0 : Number(criterion?.answer) + 1 || null;
   return (
     <>
-      {Array(criterion.scale + 2)
+      {Array(criterion.scale + 1)
         .fill("")
         .map((e, i) => {
           return (
@@ -21,7 +20,7 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
                 onClick={async () => {
                   if (answerIndex !== i) {
                     setLoading(i);
-                    const resp = await apiAnswer(i === 0 ? "na" : i - 1);
+                    const resp = await apiAnswer(i);
                     setLoading(null);
                     setTimeout(() => {
                       changeCrit(1);
@@ -29,17 +28,12 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
                   }
                 }}
               >
-                {i === 0 && answerIndex !== 0 && loading !== 0 && "NE"}
                 {i === answerIndex && (
-                  <div className="answered appearAnim">
-                    {answerIndex === 0 && "NE"}
-                  </div>
+                  <div className="answered appearAnim"></div>
                 )}
                 {i === loading && <LoadingWheel />}
               </div>
-              {i !== criterion.scale + 1 && (
-                <div className="answerSeparator"></div>
-              )}
+              {i !== criterion.scale && <div className="answerSeparator"></div>}
             </div>
           );
         })}
