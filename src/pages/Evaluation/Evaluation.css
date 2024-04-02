@@ -4,3 +4,33 @@
   display: flex;
   flex-direction: column;
 }
+
+.showPastButton {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* # # # # # # # # ANIMATION # # # # # # # #  */
+
+.timeButton-enter {
+  transform: rotate(0deg);
+}
+.timeButton-enter-active {
+  transform: rotate(180deg);
+  transition: all 0.3s ease-in-out;
+}
+.timeButton-enter-done {
+  transform: rotate(180deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.timeButton-exit {
+  transform: rotate(180deg);
+}
+.timeButton-exit-active {
+  transform: rotate(0deg);
+  transition: all 0.3s ease-in-out;
+}

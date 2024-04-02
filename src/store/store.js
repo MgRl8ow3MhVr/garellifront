@@ -15,14 +15,23 @@ export const appStore = create((set, get) => ({
   snackbar: { on: false, text: "", error: false },
   currentEval: { answers: null, categories: null, id: null, lastCat: null },
   currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
+  showPastEvals: false,
+  pastEvals: null,
   // UTILITIES
   resetTeen: () => set((state) => ({ teen: null })),
   resetSnackbar: () =>
     set((state) => ({ snackbar: { ...state.snackbar, on: false } })),
   resetCurrentEval: () =>
     set((state) => ({
-      currentEval: { answers: null, categories: null, id: null, lastCat: null },
+      currentEval: {
+        answers: null,
+        categories: null,
+        id: null,
+        lastCat: null,
+        months: null,
+      },
       currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
+      pastEvals: null,
     })),
   changeCatIndex: (i) => {
     set((state) => ({
@@ -44,6 +53,8 @@ export const appStore = create((set, get) => ({
 
   showSnackbar: (text, error = false) =>
     set(() => ({ snackbar: { on: true, text, error } })),
+  togglePastEvals: () =>
+    set((state) => ({ showPastEvals: !state.showPastEvals })),
   disconnect: () => {
     localStorage.clear();
     set(() => ({
@@ -252,7 +263,7 @@ export const appStore = create((set, get) => ({
     );
     return !!response;
   },
-  apiFetchEval: async (evalId, catPos) => {
+  apiFetchEval: async (evalId, catPos, evalMonths) => {
     const query = queryMaker({
       fields: ["answers", "progression"],
     });
@@ -267,6 +278,7 @@ export const appStore = create((set, get) => ({
             categories: data.attributes.progression,
             id: data.id,
             lastCat: data.attributes?.progression?.length - 1,
+            months: evalMonths,
           },
           currentIndexes: {
             ...state.currentIndexes,
@@ -309,7 +321,6 @@ export const appStore = create((set, get) => ({
             );
           }
         }
-        console.log("prog", data.attributes.progression);
       }
     );
 
@@ -351,6 +362,38 @@ export const appStore = create((set, get) => ({
       ({ data }) => {
         get().showSnackbar(
           "Il y a eu un problème avec la mise à jour du statut de l'évaluation",
+          true
+        );
+      }
+    );
+    return !!response;
+  },
+  apiFetchPastEvals: async () => {
+    console.log("get().currentEval", get().currentEval);
+    const query = queryMaker({
+      fields: ["answers"],
+      filters: [
+        `[teenager][id][$eq]=${get().teen.id}`,
+        `[evaluation_time][months][$lt]=${get().currentEval?.months}`,
+      ],
+      populate: [`[evaluation_time][fields][0]=months`],
+    });
+    const response = await get().fetchApi(
+      `/evaluations?${query}`,
+      null,
+      "GET",
+      // on success
+      (data) => {
+        set((state) => ({
+          pastEvals: data?.data.map((ev) => ({
+            answers: ev?.attributes?.answers,
+            months: ev?.attributes?.evaluation_time?.data?.attributes?.months,
+          })),
+        }));
+      },
+      () => {
+        get().showSnackbar(
+          "Echec de récupération des anciennes évaluations",
           true
         );
       }

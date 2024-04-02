@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import { appStore } from "../../store/store";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import AnswerBubbles from "../../components/AnswerBubbles/AnswerBubbles";
+import PastAnswers from "./PastAnswers";
 
 const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
   if (!criterion) {
@@ -30,6 +31,8 @@ const Criterion = ({ inparam, node, criterion, moveDir, changeCrit }) => {
           {criterion.icon?.url && <img src={criterion.icon?.url} />}
           {criterion.name}
         </div>
+        <PastAnswers id={criterion.id} />
+
         <div
           className="answers"
           data-aos={`fade-${moveDir}`}

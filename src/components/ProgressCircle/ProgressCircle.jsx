@@ -72,7 +72,6 @@ const ProgressCircle = ({
     >
       <svg width={2 * size} height={2 * size}>
         <g transform={`rotate(-90 ${size} ${size})`}>
-          {/* <Circle colour="lightgrey" /> */}
           <Circle
             colour={colour}
             colourIn={pctState === 100 ? colors.background2 : colors.button}
@@ -80,10 +79,9 @@ const ProgressCircle = ({
             size={size}
           />
         </g>
-        {/* <Text percentage={pct} /> */}
       </svg>
       {loading ? (
-        <LoadingWheel color={colors.background1} />
+        <LoadingWheel color={colors.typo} />
       ) : (
         <img
           src={imgUrl}

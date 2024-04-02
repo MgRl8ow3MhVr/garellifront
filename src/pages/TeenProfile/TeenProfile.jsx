@@ -159,6 +159,9 @@ const TeenProfile = () => {
                     progression={ev.attributes?.progression}
                     openDrawer={openDrawer === i}
                     evalId={ev.id}
+                    evalMonths={
+                      ev?.attributes?.evaluation_time?.data?.attributes?.months
+                    }
                   />
                 </div>
               );

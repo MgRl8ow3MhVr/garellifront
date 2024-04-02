@@ -2,7 +2,7 @@ import ProgressCircle from "../../components/ProgressCircle/ProgressCircle";
 import { CSSTransition } from "react-transition-group";
 import { appStore } from "../../store/store";
 
-const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
+const EvalsDrawer = ({ progression, openDrawer, evalId, evalMonths }) => {
   const line1Cats = progression.slice(0, 4);
   const line2Cats = progression.slice(4, 8);
 
@@ -25,7 +25,7 @@ const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
               size={35}
               position={j}
               action={() => {
-                apiFetchEval(evalId, j);
+                apiFetchEval(evalId, j, evalMonths);
               }}
             />
           ))}
@@ -42,7 +42,7 @@ const EvalsDrawer = ({ progression, openDrawer, evalId }) => {
               size={35}
               position={j}
               action={() => {
-                apiFetchEval(evalId, j + 4);
+                apiFetchEval(evalId, j + 4, evalMonths);
               }}
             />
           ))}
