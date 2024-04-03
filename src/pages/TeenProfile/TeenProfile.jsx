@@ -52,8 +52,8 @@ const TeenProfile = () => {
 
   // teen must have at least two evals created : first and last
   if (!teen || teen.evaluations.length < 2) return <LoadingWheel />;
-  // now isolate exit one to put it in the end
 
+  // now isolate exit one to put it in the end
   const activeEvals = JSON.parse(JSON.stringify(teen.evaluations));
   // sort by months
   activeEvals.sort(

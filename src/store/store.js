@@ -19,6 +19,7 @@ export const appStore = create((set, get) => ({
     id: null,
     lastCat: null,
     months: null,
+    status: null,
   },
   currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
   showPastEvals: false,
@@ -35,6 +36,7 @@ export const appStore = create((set, get) => ({
         id: null,
         lastCat: null,
         months: null,
+        status: null,
       },
       currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
       pastEvals: null,
@@ -272,7 +274,7 @@ export const appStore = create((set, get) => ({
   },
   apiFetchEval: async (evalId, catPos, evalMonths) => {
     const query = queryMaker({
-      fields: ["answers", "progression"],
+      fields: ["answers", "progression", "status"],
     });
     const response = await get().fetchApi(
       `/evaluations/${evalId}?${query}`,
@@ -286,6 +288,7 @@ export const appStore = create((set, get) => ({
             id: data.id,
             lastCat: data.attributes?.progression?.length - 1,
             months: evalMonths,
+            status: data.attributes.status,
           },
           currentIndexes: {
             ...state.currentIndexes,

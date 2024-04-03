@@ -6,6 +6,7 @@ import "./AnswerBubbles.css";
 const AnswerBubbles = ({ criterion, changeCrit }) => {
   const [loading, setLoading] = useState(null);
   const apiAnswer = appStore((state) => state.apiAnswer);
+  const statusEval = appStore((state) => state.currentEval)?.status;
   const answerIndex = Number(criterion?.answer);
 
   return (
@@ -13,12 +14,13 @@ const AnswerBubbles = ({ criterion, changeCrit }) => {
       {Array(criterion.scale + 1)
         .fill("")
         .map((e, i) => {
+          const clickable = answerIndex !== i && statusEval !== "finished";
           return (
             <div key={i}>
               <div
-                className="answerBubble"
+                className={`answerBubble ${clickable && "answerBubblehover"}`}
                 onClick={async () => {
-                  if (answerIndex !== i) {
+                  if (clickable) {
                     setLoading(i);
                     const resp = await apiAnswer(i);
                     setLoading(null);

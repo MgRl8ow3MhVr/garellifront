@@ -19,12 +19,12 @@
   align-items: center;
   transition: transform 0.1s ease;
   font-size: 1.5rem;
-  cursor: pointer;
   position: relative;
 }
 
-.answerBubble:hover {
+.answerBubblehover:hover {
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 .answered {
