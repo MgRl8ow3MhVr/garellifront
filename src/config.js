@@ -13,4 +13,5 @@ export const colors = {
   done: "#fa8743",
   snackBarOk: "#278410",
   snackBarKo: "#c10612",
+  pastAnswers: "#edd9c2",
 };

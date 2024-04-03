@@ -6,6 +6,7 @@
 .answers > div {
   display: flex;
   align-items: center;
+  margin-top: 0.4rem;
 }
 
 .answerBubble {

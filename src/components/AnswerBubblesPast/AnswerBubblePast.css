@@ -1,0 +1,32 @@
+/* # # # # # # ANSWER BUBBLES # # # # # #  */
+.answersPast {
+  display: flex;
+  align-items: center;
+  /* border: 1px red solid; */
+  padding: 1rem;
+}
+.answersPast > div {
+  display: flex;
+  align-items: center;
+}
+
+.answerPastBubble {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 0.4rem;
+  background-color: var(--pastAnswers);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.answeredPast {
+  transform: scale(2.5);
+}
+
+.answerPastSeparator {
+  width: 5.4rem;
+  height: 2px;
+  background-color: var(--pastAnswers);
+}

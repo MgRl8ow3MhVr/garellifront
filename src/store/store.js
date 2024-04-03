@@ -13,7 +13,13 @@ export const appStore = create((set, get) => ({
   teen: null,
   evalTimes: null,
   snackbar: { on: false, text: "", error: false },
-  currentEval: { answers: null, categories: null, id: null, lastCat: null },
+  currentEval: {
+    answers: null,
+    categories: null,
+    id: null,
+    lastCat: null,
+    months: null,
+  },
   currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
   showPastEvals: false,
   pastEvals: null,
@@ -32,6 +38,7 @@ export const appStore = create((set, get) => ({
       },
       currentIndexes: { catIndex: 0, catPrev: 0, critIndex: 0, critPrev: 0 },
       pastEvals: null,
+      showPastEvals: false,
     })),
   changeCatIndex: (i) => {
     set((state) => ({
@@ -369,7 +376,6 @@ export const appStore = create((set, get) => ({
     return !!response;
   },
   apiFetchPastEvals: async () => {
-    console.log("get().currentEval", get().currentEval);
     const query = queryMaker({
       fields: ["answers"],
       filters: [

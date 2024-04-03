@@ -111,6 +111,7 @@ const TeenProfile = () => {
 
               const started = ev.attributes.status === "started";
               // complete means not yet validated but all answered 100%
+              // const complete = true;
               const complete = ev.attributes.progression.reduce(
                 (acc, p) => acc === true && p.percent === 100,
                 true

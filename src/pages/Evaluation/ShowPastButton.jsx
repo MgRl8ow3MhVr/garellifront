@@ -8,19 +8,25 @@ const ShowPastButton = () => {
   const pastEvals = appStore((state) => state.pastEvals);
   const togglePastEvals = appStore((state) => state.togglePastEvals);
   const showPastEvals = appStore((state) => state.showPastEvals);
+  const currentEvalTime = appStore((state) => state.currentEval).months;
+
+  if (!currentEvalTime) return null;
 
   return (
     <CSSTransition in={showPastEvals} timeout={300} classNames="timeButton">
       <div
         className="showPastButton"
-        onClick={() => {
+        onClick={async () => {
           if (!pastEvals) {
-            apiFetchPastEvals();
+            await apiFetchPastEvals();
           }
           togglePastEvals();
         }}
       >
-        <TimeIcon size="3rem" color={colors.typo} />
+        <TimeIcon
+          size="3rem"
+          color={!showPastEvals ? colors.button : colors.typo}
+        />
       </div>
     </CSSTransition>
   );
