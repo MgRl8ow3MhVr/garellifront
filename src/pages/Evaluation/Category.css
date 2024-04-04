@@ -32,6 +32,13 @@
   gap: 1rem;
   text-transform: uppercase;
 }
+
+@media only screen and (max-height: 750px) {
+  .CategoryTitle {
+    flex-direction: row;
+  }
+}
+
 .CategoryTitle > img {
   height: 3rem;
 }

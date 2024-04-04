@@ -35,6 +35,16 @@
   /* border: solid 1px blue; */
 }
 
+@media only screen and (max-height: 750px) {
+  .CriterionText {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .CriterionText > img {
+    margin-right: 1.5rem;
+  }
+}
+
 .CriterionText > img {
   /* border: 2px orange solid; */
   width: 4rem;
