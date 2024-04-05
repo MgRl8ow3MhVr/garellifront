@@ -362,7 +362,6 @@ export const appStore = create((set, get) => ({
         data: {
           status: "finished",
           submission_date: now.toISOString().split("T")[0],
-          emailsent: true,
         },
       },
       "PUT",
