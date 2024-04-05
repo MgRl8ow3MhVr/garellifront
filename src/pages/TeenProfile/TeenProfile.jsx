@@ -132,6 +132,7 @@ const TeenProfile = () => {
                       <div
                         className="teenEvalsAction hoverbig"
                         onClick={async () => {
+                          // mettre un try catch plutot ?
                           await apiProduceResults(ev.id);
                           // unlock next eval
                           const idToStart = evalsNotStarted.length
