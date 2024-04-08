@@ -14,7 +14,7 @@ const LoginPage = () => {
   return (
     <div className="loginContainer">
       <div className="loginBlockUp">
-        <div className="loginTitle">ACQUIS DES JEUNES</div>
+        <div className="loginTitle">GARELLI 95</div>
         <input
           type="text"
           placeholder="Identifiant"

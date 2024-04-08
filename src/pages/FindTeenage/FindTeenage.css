@@ -3,7 +3,7 @@
 }
 
 .findTeenContainer {
-  /* border: 1px solid orange; */
+  border: 1px solid orange;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -23,6 +23,12 @@
   align-items: center;
 }
 
+@media screen and (max-width: 750px) {
+  .findTeenInput {
+    width: 15rem;
+  }
+}
+
 .findTeenSearchIcon {
   position: absolute;
   right: 1rem;
@@ -32,6 +38,7 @@
 .findTeenInput > input {
   width: 100%;
   height: 1rem;
+  min-width: none;
 }
 
 .findTeenListContainer {
@@ -98,4 +105,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+@media screen and (max-width: 750px) {
+  .findTeenUser {
+    flex-direction: column;
+  }
 }

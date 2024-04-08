@@ -35,7 +35,7 @@
   /* border: solid 1px blue; */
 }
 
-@media only screen and (max-height: 750px) {
+@media only screen and (max-height: 750px) and (orientation: landscape) {
   .CriterionText {
     flex-direction: row;
     justify-content: center;
