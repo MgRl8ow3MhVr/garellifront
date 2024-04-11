@@ -92,7 +92,7 @@ const TeenProfile = () => {
         </div>
       </div>
       <div className="teenBlockEvals">
-        <div className="teenEvalsTitle">grille d'observation</div>
+        <div className="teenEvalsTitle">MON PARCOURS</div>
         <div className="evalsBlock">
           {allEvals &&
             allEvals.map((ev, i) => {

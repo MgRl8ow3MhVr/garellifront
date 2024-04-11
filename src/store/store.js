@@ -213,8 +213,7 @@ export const appStore = create((set, get) => ({
           // then REFECTH TEEN because those 2 evals have just been created
           await get().apiFetchOneTeen(teenId);
           get().showSnackbar(
-            "Bienvenue dans ton espace d'évaluations " +
-              data.attributes.first_name
+            "Bienvenu dans ton parcours " + data.attributes.first_name
           );
 
           // otherwise, it's okay to set teen in the store. Then profile page will display ok
@@ -253,19 +252,19 @@ export const appStore = create((set, get) => ({
     // return response?.data?.attributes.?evaluations?.data;
   },
 
-  apiCreateEval: async (evaluation_time, teenId) => {
+  apiCreateEval: async (evaluation_time, teenIdparam) => {
     const response = await get().fetchApi(
       `/evaluations`,
-      { data: { evaluation_time, teenager: teenId || get().teen.id } },
+      { data: { evaluation_time, teenager: teenIdparam || get().teen.id } },
       "POST",
       ({ data }) => {
         // refetch teen to show new unlocked eval
         const teenId = get().teen?.id;
         teenId && get().apiFetchOneTeen(teenId);
         // SnackBar
-        if (!teenId) {
+        if (!teenIdparam) {
           get().showSnackbar(
-            "Vos résultats ont bien été envoyés. La prochaine évaluation est disponible"
+            "Vos résultats ont bien été envoyés. Le prochain questionnaire est disponible"
           );
         }
       }
@@ -327,7 +326,7 @@ export const appStore = create((set, get) => ({
           );
           if (complete) {
             get().showSnackbar(
-              "Vous avez complété l'évaluation, vous pouvez désormais la valider"
+              "Vous avez complété le questionnaire, vous pouvez désormais la valider"
             );
           }
         }
@@ -346,7 +345,7 @@ export const appStore = create((set, get) => ({
       },
       ({ data }) => {
         get().showSnackbar(
-          "Il y a eu un problème avec l'envoi de l'évaluation",
+          "Il y a eu un problème avec l'envoi du questionnaire",
           true
         );
         throw new TypeError("error");
@@ -367,11 +366,11 @@ export const appStore = create((set, get) => ({
       "PUT",
       async ({ data }) => {
         await get().apiFetchOneTeen(get().teen.id);
-        get().showSnackbar("L'évaluation a bien été envoyée, merci !");
+        get().showSnackbar("Le questionnaire a bien été envoyé, merci !");
       },
       ({ data }) => {
         get().showSnackbar(
-          "Il y a eu un problème avec la mise à jour du statut de l'évaluation",
+          "Il y a eu un problème avec la mise à jour du statut du questionnaire",
           true
         );
       }
